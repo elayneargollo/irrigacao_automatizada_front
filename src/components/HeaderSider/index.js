@@ -22,7 +22,7 @@ import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
 import BuildIcon from '@material-ui/icons/Build';
 import EcoIcon from '@material-ui/icons/Eco';
 import { useNavigate } from 'react-router-dom';
-import { cadastrarPlantas, home, about, configuracao, monitoramento, sistema } from '../../routes/paths';
+import { cadastrarPlantas, home, about, configuracao, monitoramento, sistema, plantas } from '../../routes/paths';
 
 const drawerWidth = 240;
 
@@ -89,7 +89,7 @@ export default function PersistentDrawerLeft() {
   const navigate = useNavigate();
 
   const [open, setOpen] = React.useState(false);
-  const redirectMenuPlanta = () => navigate(cadastrarPlantas);
+  const redirectMenuPlanta = () => navigate(plantas);
   const redirectMenuInicio = () => navigate(home);
   const redirectMenuAbout = () => navigate(about);
   const redirectMenuSistema = () => navigate(sistema);

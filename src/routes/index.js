@@ -3,13 +3,13 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Header from "../components/HeaderSider/index";
 import Navbar from '../components/NavBar/navbar';
 import Footer from '../components/Footer/footer';
-
 import CadastroPlanta from '../pages/Plantas/Cadastrar/index';
 import Home from '../pages/Root/index';
 import Sobre from '../pages/About/index';
 import Sistema from '../pages/Sistema/index';
 import Configuracao from '../pages/Configuracao/index';
 import Monitoramento from '../pages/Monitoramento/index';
+import Plantas from '../pages/Plantas/index';
 
 export const paths = require('./paths');
 
@@ -25,6 +25,7 @@ export default function Rotas() {
         <Route exact path={paths.monitoramento} element={<Monitoramento/>} />
         <Route exact path={paths.sistema} element={<Sistema/>} />
         <Route exact path={paths.configuracao} element={<Configuracao/>} />
+        <Route exact path={paths.plantas} element={<Plantas/>} />
       </Routes>
       <Footer />
     </BrowserRouter>

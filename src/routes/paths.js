@@ -2,6 +2,7 @@
 export const home = '/';
 export const about = '/sobre';
 
+export const plantas = '/plantas';
 export const cadastrarPlantas = '/cadastrarPlantas';
 export const editarPlantas = '/editarPlantas';
 export const excluirPlantas = '/excluirPlantas';

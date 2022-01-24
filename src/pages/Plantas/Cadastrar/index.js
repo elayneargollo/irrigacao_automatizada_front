@@ -10,6 +10,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import './Sytle.css';
+import Typography from "@material-ui/core/Typography";
+import CancelIcon from '@material-ui/icons/Cancel';
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
+import { useNavigate } from 'react-router-dom';
+import { plantas } from '../../../routes/paths';
 
 const drawerWidth = 240;
 
@@ -19,11 +24,6 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: 210,
     },
-  },
-  button: {
-    margin: theme.spacing(1),
-    width: 100,
-    marginLeft: 1050
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -48,6 +48,16 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+  },
+  toolbar: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: theme.spacing(2),
+    paddingTop: 120
+  },
+  button: {
+    display: "flex",
+    margin: '13px 12px 12px 10px'
   },
 }));
 
@@ -74,26 +84,38 @@ export default function LayoutTextFields() {
     setFruto(event.target.value);
   };
 
+  
+  const navigate = useNavigate();
+
+  const handleChangeReturn = () =>
+  {
+    console.log('oi');
+    navigate(plantas);
+  } 
+
   return (
+    
     <div>
-        <CssBaseline />
-        <Container>
+      <CssBaseline />
+      <Container>
 
-          <div className='conteudo'>
+        <div className={classes.toolbar}>
 
-            <form className={classes.root}>
-              <h1>Cadastrar Planta</h1>
-              
-              <div className='texto'>
+          <form className={classes.root}>
+            <Typography variant="h4" component="h2" color="primary">
+              Cadastro de Planta
+            </Typography>
 
-                <TextField
-                  id="margin-none"
-                  label="Nome Popular da Planta *"
-                  placeholder="Informe o nome da planta"
-                />
+            <div>
+
+              <TextField
+                id="margin-none"
+                label="Nome Popular da Planta *"
+                placeholder="Informe o nome da planta"
+              />
 
               <FormControl className={classes.formControl}>
-               <InputLabel id="demo-simple-select-label">Fruto *</InputLabel>
+                <InputLabel id="demo-simple-select-label">Fruto *</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="margin-none"
@@ -105,18 +127,18 @@ export default function LayoutTextFields() {
                 </Select>
               </FormControl >
 
-              </div>
+            </div>
 
-              <div className='texto'>
+            <div>
 
               <TextField
-                  id="margin-none"
-                  label="Tipo de Planta *"
-                  placeholder="Informe o tipo da planta"
-                />
+                id="margin-none"
+                label="Tipo de Planta *"
+                placeholder="Informe o tipo da planta"
+              />
 
               <FormControl className={classes.formControl}>
-               <InputLabel id="demo-simple-select-label">Ambiente *</InputLabel>
+                <InputLabel id="demo-simple-select-label">Ambiente *</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="margin-none"
@@ -129,7 +151,7 @@ export default function LayoutTextFields() {
               </FormControl >
 
               <FormControl className={classes.formControl}>
-               <InputLabel id="demo-simple-select-label">Porte da Planta *</InputLabel>
+                <InputLabel id="demo-simple-select-label">Porte da Planta *</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="margin-none"
@@ -142,7 +164,7 @@ export default function LayoutTextFields() {
               </FormControl >
 
               <FormControl className={classes.formControl}>
-               <InputLabel id="demo-simple-select-label">Solo *</InputLabel>
+                <InputLabel id="demo-simple-select-label">Solo *</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="margin-none"
@@ -155,20 +177,37 @@ export default function LayoutTextFields() {
                 </Select>
               </FormControl >
 
-              </div>
+            </div>
+
+            <div className={classes.button}>
               <Button
-                variant="contained"
+                variant="outlined"
                 color="primary"
-                size="small"
-                className={classes.button}
                 startIcon={<SaveIcon />}
               >
                 Salvar
               </Button>
-            </form>
-          </div>
-        </Container>
-    </div>
 
+              <Button
+                variant="outlined"
+                color="primary"
+                startIcon={<CancelIcon />}
+              >
+                Cancelar
+              </Button>
+
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={handleChangeReturn}
+                startIcon={<KeyboardReturnIcon />}
+              >
+                Voltar
+              </Button>
+            </div>
+          </form>
+        </div>
+      </Container>
+    </div>
   );
 }
