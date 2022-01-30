@@ -13,6 +13,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const planta =
+  'A irrigação não é apenas molhar o solo, mas sim quando calculamos a água que precisamos para uma cultura e a colocamos no solo conforme o planejado e o mais regularmente possível.' +
+  'Ela veio com o objetivo de ajudar as planta para atender às condições de umidade de solo visando à melhoria da produção agrícola, tanto em quantidade como em qualidade ou oportunidade.' +
+  'Na realidade, ela constitui um conjunto de operações (compondo em si um sistema) necessário ao atendimento das necessidades de água para as plantas, bem como eliminar seus excessos, que transcendem à relação solo, água, planta, pura e simplesmente.';
+
+const title = 'Monitoramento'
+
 export default function Monitoramento() {
   const classes = useStyles();
 
@@ -20,9 +27,8 @@ export default function Monitoramento() {
     <div>
       <Card className={classes.root} variant="outlined">
         <CardContent>
-          <Typography variant="h4" component="h2" color="primary">
-            Monitoramento
-          </Typography>
+          <Typography variant="h4" component="h2" color="primary">{title}</Typography>
+          <Typography variant="h7" paragraph>{planta}</Typography>
         </CardContent>
       </Card>
     </div>
