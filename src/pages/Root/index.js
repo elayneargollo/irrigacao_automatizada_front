@@ -11,23 +11,21 @@ import './Sytle.css';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
   imageList: {
     flexWrap: 'nowrap',
     transform: 'translateZ(0)',
   },
-  title: {
-    color: theme.palette.primary.light,
-  },
   titleBar: {
     background:
       'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+  },
+  root: {
+    marginLeft: 240,
+    marginRight: "auto",
+  },
+  rootText: {
+    marginLeft: 255,
+    marginRight: "auto",
   },
 }));
 
@@ -69,6 +67,7 @@ export default function SingleLineImageList() {
 
   return (
     <div>
+      
       <div className={classes.root}>
         <ImageList className={classes.imageList} cols={4}>
           {itemData.map((item) => (
@@ -86,12 +85,12 @@ export default function SingleLineImageList() {
         </ImageList>
       </div>
 
-      <div className="texto">
+      <div className={classes.rootText}>
         <h1>Plantas</h1>
-        <Typography paragraph>{planta} </Typography>
+        <Typography variant="h7" paragraph>{planta} </Typography>
 
         <h1>Irrigação</h1>
-        <Typography paragraph>{irrigacao} </Typography>
+        <Typography variant="h7" paragraph>{irrigacao} </Typography>
 
       </div>
 

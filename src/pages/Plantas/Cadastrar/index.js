@@ -1,67 +1,43 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import SaveIcon from '@material-ui/icons/Save';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import './Sytle.css';
-import Typography from "@material-ui/core/Typography";
-import CancelIcon from '@material-ui/icons/Cancel';
-import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import { useNavigate } from 'react-router-dom';
 import { plantas } from '../../../routes/paths';
-
-const drawerWidth = 240;
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 210,
-    },
+    marginLeft: "auto",
+    marginRight: "auto",
+    maxWidth: 1000,
+    marginTop: 120
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
+  rootForm: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
-  formControl: {
+  margin: {
     margin: theme.spacing(1),
-    minWidth: 130,
-    maxWidth: 300,
   },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
+  withoutLabel: {
+    marginTop: theme.spacing(3),
   },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
-  toolbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginBottom: theme.spacing(2),
-    paddingTop: 120
-  },
-  button: {
-    display: "flex",
-    margin: '13px 12px 12px 10px'
+  textField: {
+    marginTop: theme.spacing(3),
+    width: '25ch',
   },
 }));
 
-export default function LayoutTextFields() {
+export default function OutlinedCard() {
   const classes = useStyles();
   const [ambiente, setAmbiente] = React.useState('');
   const [porte, setPorte] = React.useState('');
@@ -84,37 +60,28 @@ export default function LayoutTextFields() {
     setFruto(event.target.value);
   };
 
-  
+
   const navigate = useNavigate();
 
-  const handleChangeReturn = () =>
-  {
+  const handleChangeReturn = () => {
     console.log('oi');
     navigate(plantas);
-  } 
+  }
 
   return (
-    
-    <div>
-      <CssBaseline />
-      <Container>
-
-        <div className={classes.toolbar}>
-
-          <form className={classes.root}>
-            <Typography variant="h4" component="h2" color="primary">
+    <Card className={classes.root} variant="outlined">
+      <CardContent>
+      <Typography variant="h4" component="h2" color="primary">
               Cadastro de Planta
-            </Typography>
-
-            <div>
-
-              <TextField
+        </Typography>
+        <div>
+              <TextField className={clsx(classes.margin, classes.textField)}
                 id="margin-none"
                 label="Nome Popular da Planta *"
                 placeholder="Informe o nome da planta"
               />
 
-              <FormControl className={classes.formControl}>
+              <FormControl className={clsx(classes.margin, classes.textField)}>
                 <InputLabel id="demo-simple-select-label">Fruto *</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
@@ -126,18 +93,16 @@ export default function LayoutTextFields() {
                   <MenuItem value={20}>Não</MenuItem>
                 </Select>
               </FormControl >
-
             </div>
 
             <div>
-
-              <TextField
+              <TextField className={clsx(classes.margin, classes.textField)}
                 id="margin-none"
                 label="Tipo de Planta *"
                 placeholder="Informe o tipo da planta"
               />
 
-              <FormControl className={classes.formControl}>
+              <FormControl className={clsx(classes.margin, classes.textField)}>
                 <InputLabel id="demo-simple-select-label">Ambiente *</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
@@ -150,7 +115,7 @@ export default function LayoutTextFields() {
                 </Select>
               </FormControl >
 
-              <FormControl className={classes.formControl}>
+              <FormControl className={clsx(classes.margin, classes.textField)}>
                 <InputLabel id="demo-simple-select-label">Porte da Planta *</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
@@ -163,7 +128,7 @@ export default function LayoutTextFields() {
                 </Select>
               </FormControl >
 
-              <FormControl className={classes.formControl}>
+              <FormControl className={clsx(classes.margin, classes.textField)}>
                 <InputLabel id="demo-simple-select-label">Solo *</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
@@ -176,38 +141,22 @@ export default function LayoutTextFields() {
                   <MenuItem value={30}>Argilo-Arenoso</MenuItem>
                 </Select>
               </FormControl >
-
             </div>
+          </CardContent>
 
-            <div className={classes.button}>
-              <Button
-                variant="outlined"
-                color="primary"
-                startIcon={<SaveIcon />}
-              >
-                Salvar
-              </Button>
+          <CardActions>
+            <Button size="small" color="primary">
+              Salvar
+            </Button>
 
-              <Button
-                variant="outlined"
-                color="primary"
-                startIcon={<CancelIcon />}
-              >
-                Cancelar
-              </Button>
+            <Button size="small" color="primary" >
+              Cancelar
+            </Button>
 
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={handleChangeReturn}
-                startIcon={<KeyboardReturnIcon />}
-              >
-                Voltar
-              </Button>
-            </div>
-          </form>
-        </div>
-      </Container>
-    </div>
+            <Button size="small" color="primary" onClick={handleChangeReturn}>
+              Voltar
+            </Button>
+          </CardActions>
+    </Card>
   );
 }

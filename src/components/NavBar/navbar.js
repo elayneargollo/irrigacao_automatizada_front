@@ -4,6 +4,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Container from '@material-ui/core/Container';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
+import Typography from '@material-ui/core/Typography';
+
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
@@ -22,6 +24,9 @@ export default function NavBar() {
       <AppBar position="static" color="primary">
         <Container maxWidth="md">
           <Toolbar>
+            <Typography variant="h5" align="center">
+              Sistema de Monitoramento para irrigação automatizada
+            </Typography>
           </Toolbar>
         </Container>
       </AppBar>

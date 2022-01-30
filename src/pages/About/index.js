@@ -1,9 +1,30 @@
 import React from 'react';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
-export default function About() {
-    return (
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    maxWidth: 1000,
+    marginTop: 120
+  }
+}));
+
+export default function Sobre() {
+  const classes = useStyles();
+
+  return (
     <div>
-      About
+      <Card className={classes.root} variant="outlined">
+        <CardContent>
+          <Typography variant="h4" component="h2" color="primary">
+            Sobre
+          </Typography>
+        </CardContent>
+      </Card>
     </div>
   );
 }
