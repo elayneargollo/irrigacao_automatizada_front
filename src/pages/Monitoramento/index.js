@@ -81,10 +81,10 @@ export default function Monitoramento() {
 
         <div style={{ height: 370, marginLeft: "10px", marginRight: "10px"}}>
           <DataGrid
-            columns={[{ field: 'Nome', minWidth: 150, type: 'string' }, { field: 'TipoSolo', minWidth: 150, type: 'string' }, 
+            columns={[{ field: 'Nome', minWidth: 120, type: 'string' }, { field: 'TipoSolo', minWidth: 150, type: 'string' }, 
                     { field: 'Gotejamento', type: 'boolean', width: 120 }, { field: 'Irrigada', type: 'boolean', width: 120 },
-                    { field: 'Solenoide', type: 'string', width: 150 }, { field: 'Sensor', type: 'string', width: 120 },
-                    { field: 'Status', type: 'string', width: 150 }]}
+                    { field: 'Solenoide', type: 'string', width: 120 }, { field: 'Sensor', type: 'string', width: 120 },
+                    { field: 'Status', type: 'string', width: 100 }]}
             rows={rows}
           />
         </div>

@@ -1,17 +1,17 @@
 import * as React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import { DataGrid } from '@mui/x-data-grid';
-import Container from '@material-ui/core/Container';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import { useNavigate } from 'react-router-dom';
 import { cadastrarPlantas } from '../../routes/paths';
-import { Row } from "antd";
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 
 const columns = [
   { 
@@ -43,42 +43,43 @@ const columns = [
     width: 130,
   },
   {
-    field: "Editar",
-    headerName: "Editar",
-    sortable: false,
+    field: 'Deletar',
+    headerName: 'Deletar',
     width: 110,
-    disableClickEventBubbling: true,
-    renderCell: () => {
-      return (
+    renderCell: (params) => (
+      <strong>
+        {params.value}
         <IconButton
-          aria-label="edit"
-          // onClick={() => editUser(row)}
-          title="edit">
-          <EditIcon color="primary" />
+          aria-label="delete"
+          title="delete"
+          onClick={() => handleChangeDelete(params)}
+        >
+        <DeleteIcon color="primary"/>
         </IconButton>
-      )
-    }
+      </strong>
+    ),
   },
   {
-    field: "Deletar",
-    headerName: "Deletar",
+    field: 'Editar',
+    headerName: 'Editar',
     width: 110,
-    disableClickEventBubbling: true,
-    sortable: false,
-    renderCell: () => {
-      return (
-        <strong>
-          <IconButton
-            aria-label="delete"
-            title="delete">
-            <DeleteIcon color="primary"/>
-          </IconButton>
-        </strong>
-      )
-    }
-  }
+    renderCell: (params) => (
+      <strong>
+        <IconButton
+          aria-label="edite"
+          title="edite"
+          onClick={() => handleChangeEdit(params)}
+        >
+        <EditIcon color="primary" />
+        </IconButton>
+      </strong>
+    ),
+  },
 ];
 
+const handleChangeEdit = (params) => console.log(`Edite => ${params.id}`);
+
+const handleChangeDelete = (params) => console.log(`Delete => ${params.id}`);
 
 const rows = [
   { id: 1, firstName: "Palmeira", lastName: "Arenoso", age: 'Interno', porte: 'Médio' },
@@ -90,25 +91,11 @@ const rows = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default
+    marginLeft: "auto",
+    marginRight: "auto",
+    maxWidth: 1200,
+    marginTop: 120
   },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  title: {
-    flexGrow: 1
-  },
-  toolbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginBottom: theme.spacing(2),
-    paddingTop: 120
-  },
-  content: {
-    margin: theme.spacing(2),
-    padding: theme.spacing(2)
-  }
 }));
 
 export default function MyApp() {
@@ -119,13 +106,12 @@ export default function MyApp() {
 
   return (
     <div>
-      <CssBaseline />
-      <Container>
+      <Card className={classes.root} variant="outlined" style={{ height: 650, width: '100%' }} >
+        <CardContent>
+          <Typography variant="h4" component="h2" color="primary">Planta</Typography>
+        </CardContent>
 
-        <div className={classes.toolbar}>
-          <Typography variant="h4" component="h2" color="primary">
-            Plantas
-          </Typography>
+        <CardActions>
           <Button
             variant="outlined"
             color="primary"
@@ -134,15 +120,16 @@ export default function MyApp() {
           >
             Cadastrar Planta
           </Button>
-        </div>
-        <div style={{ height: 400, width: "100%" }}>
+        </CardActions>
+
+        <div style={{ height: 450, marginLeft: "10px", marginRight: "10px"}}>
           <DataGrid
             rows={rows}
             columns={columns}
-            checkboxSelection
           />
         </div>
-      </Container>
+        
+      </Card>
     </div>
   );
 }
