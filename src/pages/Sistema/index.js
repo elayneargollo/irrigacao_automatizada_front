@@ -9,6 +9,8 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
+import HeaderSider from '../../components/HeaderSider/index';
+import Footer from '../../components/Footer/index';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +31,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
+  fundo :
+  {
+    background: '#f7f6f4',
+    height: '100vh'
+  }
 }));
 
 export default function Sistema() {
@@ -40,7 +47,8 @@ export default function Sistema() {
   };
 
   return (
-    <div>
+    <div className={classes.fundo}>
+      <HeaderSider/>
       <Card className={classes.root} variant="outlined">
         <CardContent>
           <Typography variant="h4" component="h2" color="primary">
@@ -96,6 +104,7 @@ export default function Sistema() {
           </Accordion>
         </CardContent>
       </Card>
+      <Footer/>
     </div>
   );
 }

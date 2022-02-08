@@ -13,6 +13,8 @@ import imageIrrigacaoAspersao from '../../assets/img/irrigacao-cpt.jpeg';
 import imageGotejamento from '../../assets/img/gotejamento.jpeg';
 import './Sytle.css';
 import Typography from '@material-ui/core/Typography';
+import HeaderSider from '../../components/HeaderSider/index';
+import Footer from '../../components/Footer/index';
 
 const useStyles = makeStyles((theme) => ({
   titleBar: {
@@ -32,7 +34,11 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 1000,
     marginTop: 120
   },
-
+  fundo :
+  {
+    background: '#f7f6f4',
+    height: '100vh'
+  }
 }));
 
 
@@ -91,7 +97,8 @@ export default function SingleLineImageList() {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.fundo}>
+      <HeaderSider/>
       <div className={classes.root}>
         <h1>Plantas</h1>
         <Typography variant="h7" paragraph>{planta} </Typography>
@@ -132,8 +139,8 @@ export default function SingleLineImageList() {
             ))}
           </ImageList>
       </div>
-
       </div>
+      <Footer/>
     </div>
   );
 }

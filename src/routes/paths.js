@@ -1,5 +1,6 @@
 
-export const home = '/';
+export const home = '/home';
+export const loginSistema = '/';
 export const about = '/sobre';
 
 export const plantas = '/plantas';
@@ -9,5 +10,7 @@ export const excluirPlantas = '/excluirPlantas';
 export const detalharPlantas = '/detalharPlantas';
 
 export const configuracao = '/configuracao';
+export const cadastrarRaspberry = '/configuracao/cadastrarRaspberry';
 export const sistema = '/sistema';
 export const monitoramento = '/monitoramento';
+

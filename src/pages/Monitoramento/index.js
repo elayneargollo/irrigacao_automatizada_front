@@ -4,7 +4,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { DataGrid } from '@mui/x-data-grid';
-
+import HeaderSider from '../../components/HeaderSider/index';
+import Footer from '../../components/Footer/index';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,6 +13,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     maxWidth: 1000,
     marginTop: 120
+  },
+  fundo :
+  {
+    background: '#f7f6f4',
+    height: '100vh'
   }
 }));
 
@@ -73,7 +79,8 @@ export default function Monitoramento() {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.fundo}>
+      <HeaderSider/>
       <Card className={classes.root} variant="outlined" style={{ height: 480, width: '100%' }}  >
         <CardContent>
           <Typography variant="h4" component="h2" color="primary">{title}</Typography>
@@ -89,6 +96,7 @@ export default function Monitoramento() {
           />
         </div>
       </Card>
+      <Footer/>
     </div>
   );
 }

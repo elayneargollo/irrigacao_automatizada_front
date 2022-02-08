@@ -13,6 +13,8 @@ import Select from '@material-ui/core/Select';
 import { useNavigate } from 'react-router-dom';
 import { plantas } from '../../../routes/paths';
 import clsx from 'clsx';
+import HeaderSider from '../../../components/HeaderSider/index';
+import Footer from '../../../components/Footer/index';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     width: '25ch',
   },
+  fundo:
+  {
+    background: '#f7f6f4',
+    height: '100vh'
+  }
 }));
 
 export default function OutlinedCard() {
@@ -69,94 +76,98 @@ export default function OutlinedCard() {
   }
 
   return (
-    <Card className={classes.root} variant="outlined" >
-      <CardContent>
-      <Typography variant="h4" component="h2" color="primary">
+    <div className={classes.fundo}>
+      <HeaderSider />
+      <Card className={classes.root} variant="outlined" >
+        <CardContent>
+          <Typography variant="h4" component="h2" color="primary">
             Cadastro de Planta
-        </Typography>
-        <div>
-              <TextField className={clsx(classes.margin, classes.textField)}
+          </Typography>
+          <div>
+            <TextField className={clsx(classes.margin, classes.textField)}
+              id="margin-none"
+              label="Nome Popular da Planta *"
+              placeholder="Informe o nome da planta"
+            />
+
+            <FormControl className={clsx(classes.margin, classes.textField)}>
+              <InputLabel id="demo-simple-select-label">Fruto *</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
                 id="margin-none"
-                label="Nome Popular da Planta *"
-                placeholder="Informe o nome da planta"
-              />
+                value={fruto}
+                onChange={handleChangeFruto}
+              >
+                <MenuItem value={10}>Sim</MenuItem>
+                <MenuItem value={20}>Não</MenuItem>
+              </Select>
+            </FormControl >
+          </div>
 
-              <FormControl className={clsx(classes.margin, classes.textField)}>
-                <InputLabel id="demo-simple-select-label">Fruto *</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="margin-none"
-                  value={fruto}
-                  onChange={handleChangeFruto}
-                >
-                  <MenuItem value={10}>Sim</MenuItem>
-                  <MenuItem value={20}>Não</MenuItem>
-                </Select>
-              </FormControl >
-            </div>
+          <div>
+            <TextField className={clsx(classes.margin, classes.textField)}
+              id="margin-none"
+              label="Tipo de Planta *"
+              placeholder="Informe o tipo da planta"
+            />
 
-            <div>
-              <TextField className={clsx(classes.margin, classes.textField)}
+            <FormControl className={clsx(classes.margin, classes.textField)}>
+              <InputLabel id="demo-simple-select-label">Ambiente *</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
                 id="margin-none"
-                label="Tipo de Planta *"
-                placeholder="Informe o tipo da planta"
-              />
+                value={ambiente}
+                onChange={handleChange}
+              >
+                <MenuItem value={10}>Interno</MenuItem>
+                <MenuItem value={20}>Externo</MenuItem>
+              </Select>
+            </FormControl >
 
-              <FormControl className={clsx(classes.margin, classes.textField)}>
-                <InputLabel id="demo-simple-select-label">Ambiente *</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="margin-none"
-                  value={ambiente}
-                  onChange={handleChange}
-                >
-                  <MenuItem value={10}>Interno</MenuItem>
-                  <MenuItem value={20}>Externo</MenuItem>
-                </Select>
-              </FormControl >
+            <FormControl className={clsx(classes.margin, classes.textField)}>
+              <InputLabel id="demo-simple-select-label">Porte da Planta *</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="margin-none"
+                value={porte}
+                onChange={handleChangePorte}
+              >
+                <MenuItem value={10}>Média</MenuItem>
+                <MenuItem value={20}>Pequena</MenuItem>
+              </Select>
+            </FormControl >
 
-              <FormControl className={clsx(classes.margin, classes.textField)}>
-                <InputLabel id="demo-simple-select-label">Porte da Planta *</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="margin-none"
-                  value={porte}
-                  onChange={handleChangePorte}
-                >
-                  <MenuItem value={10}>Média</MenuItem>
-                  <MenuItem value={20}>Pequena</MenuItem>
-                </Select>
-              </FormControl >
+            <FormControl className={clsx(classes.margin, classes.textField)}>
+              <InputLabel id="demo-simple-select-label">Solo *</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="margin-none"
+                value={solo}
+                onChange={handleChangeSolo}
+              >
+                <MenuItem value={10}>Arenoso</MenuItem>
+                <MenuItem value={20}>Argiloso</MenuItem>
+                <MenuItem value={30}>Argilo-Arenoso</MenuItem>
+              </Select>
+            </FormControl >
+          </div>
+        </CardContent>
 
-              <FormControl className={clsx(classes.margin, classes.textField)}>
-                <InputLabel id="demo-simple-select-label">Solo *</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="margin-none"
-                  value={solo}
-                  onChange={handleChangeSolo}
-                >
-                  <MenuItem value={10}>Arenoso</MenuItem>
-                  <MenuItem value={20}>Argiloso</MenuItem>
-                  <MenuItem value={30}>Argilo-Arenoso</MenuItem>
-                </Select>
-              </FormControl >
-            </div>
-          </CardContent>
+        <CardActions>
+          <Button size="small" color="primary">
+            Salvar
+          </Button>
 
-          <CardActions>
-            <Button size="small" color="primary">
-              Salvar
-            </Button>
+          <Button size="small" color="primary" >
+            Cancelar
+          </Button>
 
-            <Button size="small" color="primary" >
-              Cancelar
-            </Button>
-
-            <Button size="small" color="primary" onClick={handleChangeReturn}>
-              Voltar
-            </Button>
-          </CardActions>
-    </Card>
+          <Button size="small" color="primary" onClick={handleChangeReturn}>
+            Voltar
+          </Button>
+        </CardActions>
+      </Card>
+      <Footer />
+    </div>
   );
 }
