@@ -12,12 +12,13 @@ import { cadastrarPlantas } from '../../routes/paths';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import Tooltip from '@material-ui/core/Tooltip'
 
 const columns = [
-  { 
-    field: "id", 
-    headerName: "ID", 
-    width: 100 
+  {
+    field: "id",
+    headerName: "ID",
+    width: 100
   },
   {
     field: "firstName",
@@ -50,11 +51,11 @@ const columns = [
       <strong>
         {params.value}
         <IconButton
-          aria-label="delete"
-          title="delete"
+          aria-label="Deletar"
+          title="Deletar planta"
           onClick={() => handleChangeDelete(params)}
         >
-        <DeleteIcon color="primary"/>
+          <DeleteIcon color="primary" />
         </IconButton>
       </strong>
     ),
@@ -66,11 +67,11 @@ const columns = [
     renderCell: (params) => (
       <strong>
         <IconButton
-          aria-label="edite"
-          title="edite"
+          aria-label="Eidtar"
+          title="Editar planta"
           onClick={() => handleChangeEdit(params)}
         >
-        <EditIcon color="primary" />
+          <EditIcon color="primary" />
         </IconButton>
       </strong>
     ),
@@ -96,6 +97,12 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 1200,
     marginTop: 120
   },
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
 }));
 
 export default function MyApp() {
@@ -106,29 +113,31 @@ export default function MyApp() {
 
   return (
     <div>
-      <Card className={classes.root} variant="outlined" style={{ height: 650, width: '100%' }} >
+      <Card className={classes.root} variant="outlined" style={{ height: 650, width: '100%'}} >
         <CardContent>
           <Typography variant="h4" component="h2" color="primary">Planta</Typography>
         </CardContent>
 
         <CardActions>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={handleChangeAdd}
-            startIcon={<AddIcon />}
-          >
-            Cadastrar Planta
-          </Button>
+          <Tooltip title="Adicionar uma nova planta ao sistema" arrow>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleChangeAdd}
+              startIcon={<AddIcon />}
+            >
+              Cadastrar Planta
+            </Button>
+          </Tooltip>
         </CardActions>
 
-        <div style={{ height: 450, marginLeft: "10px", marginRight: "10px"}}>
+        <div style={{ height: 450, marginLeft: "10px", marginRight: "10px" }}>
           <DataGrid
             rows={rows}
             columns={columns}
           />
         </div>
-        
+
       </Card>
     </div>
   );

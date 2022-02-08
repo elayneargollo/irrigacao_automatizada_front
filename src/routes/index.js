@@ -1,8 +1,6 @@
 import React from "react";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
-import Header from "../components/HeaderSider/index";
-import Navbar from '../components/NavBar/navbar';
-import Footer from '../components/Footer/footer';
+import HeaderSider from '../components/HeaderSider/index';
 import CadastroPlanta from '../pages/Plantas/Cadastrar/index';
 import Home from '../pages/Root/index';
 import Sobre from '../pages/About/index';
@@ -16,8 +14,7 @@ export const paths = require('./paths');
 export default function Rotas() {
   return (
     <BrowserRouter>
-     <Navbar />
-      <Header />
+     <HeaderSider />
       <Routes>
         <Route exact path={paths.cadastrarPlantas} element={<CadastroPlanta/>} />
         <Route exact path={paths.home} element={<Home/>} />
@@ -27,7 +24,6 @@ export default function Rotas() {
         <Route exact path={paths.configuracao} element={<Configuracao/>} />
         <Route exact path={paths.plantas} element={<Plantas/>} />
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }

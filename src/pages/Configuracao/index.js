@@ -10,7 +10,13 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     maxWidth: 1000,
     marginTop: 120
-  }
+  },
+  secondary: {
+    light: '#ff7961',
+    main: '#f44336',
+    dark: '#ba000d',
+    contrastText: '#000',
+  },
 }));
 
 const planta =
@@ -25,7 +31,7 @@ export default function Configuracao() {
 
   return (
     <div>
-      <Card className={classes.root} variant="outlined">
+      <Card className={classes.root} variant="outlined" >
         <CardContent>
           <Typography variant="h4" component="h2" color="primary">{title}</Typography>
           <Typography variant="h7" paragraph>{planta}</Typography>

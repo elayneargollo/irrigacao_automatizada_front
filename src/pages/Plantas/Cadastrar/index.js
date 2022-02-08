@@ -69,10 +69,10 @@ export default function OutlinedCard() {
   }
 
   return (
-    <Card className={classes.root} variant="outlined">
+    <Card className={classes.root} variant="outlined" >
       <CardContent>
       <Typography variant="h4" component="h2" color="primary">
-              Cadastro de Planta
+            Cadastro de Planta
         </Typography>
         <div>
               <TextField className={clsx(classes.margin, classes.textField)}

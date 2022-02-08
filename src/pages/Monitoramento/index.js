@@ -74,7 +74,7 @@ export default function Monitoramento() {
 
   return (
     <div>
-      <Card className={classes.root} variant="outlined" style={{ height: 480, width: '100%' }} >
+      <Card className={classes.root} variant="outlined" style={{ height: 480, width: '100%' }}  >
         <CardContent>
           <Typography variant="h4" component="h2" color="primary">{title}</Typography>
         </CardContent>

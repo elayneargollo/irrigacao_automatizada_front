@@ -24,7 +24,7 @@ export default function Sobre() {
 
   return (
     <div>
-      <Card className={classes.root} variant="outlined">
+      <Card className={classes.root} variant="outlined" >
         <CardContent>
           <Typography variant="h4" component="h2" color="primary">{title}</Typography>
           <Typography variant="h7" paragraph>{planta} </Typography>
