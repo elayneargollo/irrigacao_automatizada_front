@@ -153,6 +153,7 @@ export default function MiniDrawer() {
           <IconButton
             color="inherit"
             aria-label="open drawer"
+            title="Menu"
             onClick={handleDrawerOpen}
             edge="start"
             className={clsx(classes.menuButton, {
