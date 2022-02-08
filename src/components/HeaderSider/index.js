@@ -192,7 +192,7 @@ export default function MiniDrawer() {
                 key={item.text}
                 onClick={() => navigate(item.path)}
               >
-                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemIcon title={item.text}>{item.icon}</ListItemIcon>
                 <ListItemText style={{ color: '#ffff' }}>{item.text}</ListItemText>
               </ListItem>
             ))}
@@ -205,7 +205,7 @@ export default function MiniDrawer() {
                 key={item.text}
                 onClick={() => navigate(item.path)}
               >
-                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemIcon title={item.text}>{item.icon}</ListItemIcon>
                 <ListItemText style={{ color: '#ffff' }}>{item.text}</ListItemText>
               </ListItem>
             ))}
