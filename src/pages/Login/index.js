@@ -10,10 +10,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Logo from "../../assets/img/logo.png";
 import Fundo from "../../assets/img/fundo2.jpg";
 import { useNavigate } from 'react-router-dom';
-import { home, loginSistema } from '../../routes/paths';
+import { home } from '../../routes/paths';
 import { Context } from '../../Context/index';
-import Swal from 'sweetalert2'
-import Alert from '../../components/Alert/index';
+import { useDispatch } from 'react-redux';
+import  alertaAction  from '../../Action/alertaAction';
 
 const styles = theme => ({
   main: {
@@ -62,10 +62,11 @@ const styles = theme => ({
 
 function SignIn(props) {
   const { classes } = props;
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [mensagemLogin, setMensagemLogin] = useState(null);
 
   // const { authenticated, handleLogin} = useContext(Context);
 
@@ -77,12 +78,12 @@ function SignIn(props) {
   const handleLogin = () => {
     if(username === 'e' && password === 'e')
     {
-      setMensagemLogin({icon:'success', mensagem:'Seja bem-vindo !'});
+      dispatch(alertaAction.exibirAlerta({ mensagem:'Seja bem-vindo !', tipo:'success' }));
       navigate(home);
     }
     else
     {
-      setMensagemLogin({icon:'error', mensagem:'Usuário não cadastrado. Verifique sua credencial !'});
+      dispatch(alertaAction.exibirAlerta({ mensagem:'Usuário não cadastrado. Verifique sua credencial !', tipo:'error' }));
     }
   };
 
@@ -91,8 +92,6 @@ function SignIn(props) {
       <main className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
-
-      {mensagemLogin !== null && <Alert mensagem={mensagemLogin.mensagem} icon={mensagemLogin.icon} /> }
 
       <img src={Logo} alt='logotipo do sistema'/>
 

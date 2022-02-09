@@ -9,12 +9,14 @@ import Sistema from '../pages/Sistema/index';
 import Configuracao from '../pages/Configuracao/index';
 import Monitoramento from '../pages/Monitoramento/index';
 import Plantas from '../pages/Plantas/index';
+import Alert from '../components/Alert/index';
 
 export const paths = require('./paths');
 
 export default function Rotas() {
   return (
     <BrowserRouter>
+    <Alert/>
       <Routes>
         <Route exact path={paths.cadastrarPlantas} element={<CadastroPlanta/>} />
         <Route exact path={paths.cadastrarRaspberry} element={<CadastroRaspberry/>} />
