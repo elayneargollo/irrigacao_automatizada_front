@@ -20,7 +20,7 @@ const styles = theme => ({
     display: 'block', // Fix IE 11 issue.
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
-    marginTop: 200,
+    marginTop: 300,
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
       width: 400,
       marginLeft: 'auto',
@@ -59,11 +59,21 @@ const styles = theme => ({
   }
 });
 
+function MontarAlert(mensagem, icon) {
+  return Swal.fire({
+    text: mensagem,
+    icon: icon,
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
+
 function SignIn(props) {
   const { classes } = props;
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
   // const { authenticated, handleLogin} = useContext(Context);
 
   // if(authenticated)
@@ -74,19 +84,12 @@ function SignIn(props) {
   const handleLogin = () => {
     if(username === 'elayne.natalia@outlook.com' && password === 'senha')
     {
-      Swal.fire({
-        text: 'Seja bem-vindo !',
-        confirmButtonColor: '#006750',
-      })
-
+      MontarAlert('Seja bem-vindo !', 'success');
       navigate(home);
     }
     else
     {
-      Swal.fire({
-        text: 'Usuário não cadastrado. Verifique sua credencial !',
-        confirmButtonColor: '#006750',
-      })
+      return MontarAlert('Usuário não cadastrado. Verifique sua credencial !', 'error');
     }
   };
 
@@ -101,7 +104,6 @@ function SignIn(props) {
         <Typography component="h1" variant="h5" style={{ color: '#006750' }}>
           Login
         </Typography>
-
         <form className={classes.form}>
 
           <FormControl margin="normal" required fullWidth>
@@ -126,7 +128,6 @@ function SignIn(props) {
       </Paper>
     </main>
     </div>
-
   );
 }
 

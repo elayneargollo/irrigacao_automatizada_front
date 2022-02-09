@@ -145,7 +145,7 @@ export default function MyApp() {
           </Tooltip>
         </CardActions>
 
-        <div style={{ height: 420, marginLeft: "10px", marginRight: "10px", paddingTop: "15px"}}>
+        <div style={{ height: 450, marginLeft: "10px", marginRight: "10px", paddingTop: "50px"}}>
           <DataGrid
             rows={rows}
             columns={columns}
