@@ -82,16 +82,16 @@ const itemData = [
 
 
 const planta =
-  'A irrigação não é apenas molhar o solo, mas sim quando calculamos a água que precisamos para uma cultura e a colocamos no solo conforme o planejado e o mais regularmente possível.' +
-  'Ela veio com o objetivo de ajudar as planta para atender às condições de umidade de solo visando à melhoria da produção agrícola, tanto em quantidade como em qualidade ou oportunidade.' +
-  'Na realidade, ela constitui um conjunto de operações (compondo em si um sistema) necessário ao atendimento das necessidades de água para as plantas, bem como eliminar seus excessos, que transcendem à relação solo, água, planta, pura e simplesmente.';
-
+  ' As plantas tem defesas tanto a falta de água quanto a água em excesso. Na seca, elas fecham as folhas ou acabam  criando espinhos, já quando são regadas demais, elas não '+
+  'conseguem reverter a ação de absorver a água dificultando a oxigenação das raizes, apoderecendo-as. Esse projeto propõe uma solução automatizada para plantas domésticas ' +
+  'utilizando a plataforma Raspberry Pi juntamente com sensores e atuadores que sejam capazes não somente de avaliar a quantidade de água suficiente conforme a especificação de cada planta '+
+  'cadastrada no sistema para manter seu solo úmido e preservar a qualidade e vida da mesma como também reduzir falhas humanas.'
 
 const irrigacao =
-  'A irrigação não é apenas molhar o solo, mas sim quando calculamos a água que precisamos para uma cultura e a colocamos no solo conforme o planejado e o mais regularmente possível.' +
-  'Ela veio com o objetivo de ajudar as planta para atender às condições de umidade de solo visando à melhoria da produção agrícola, tanto em quantidade como em qualidade ou oportunidade.' +
-  'Na realidade, ela constitui um conjunto de operações (compondo em si um sistema) necessário ao atendimento das necessidades de água para as plantas, bem como eliminar seus excessos, que transcendem à relação solo, água, planta, pura e simplesmente.';
-
+  'Este sistema utiliza a técnica de irrigação por gotejamento.'+
+  'Essa é uma técnica eficaz e prática de molhar as plantas com a quantidade adequada de água por meio de tubos que ficam próximos às raízes, diferente de outros métodos, em que a irrigação é feita por toda a superfície simultaneamente, deixando as plantas úmidas e causando o escoamento.' +
+  'A água é aplicada de forma pontual, por meio das gotas, fornecendo a quantidade de água adequada que as raízes de cada planta necessitam. O sistema funciona da seguinte maneira: a água é distribuída de forma lenta, por meio de canos e mangueiras, contendo emissores ou gotejadores, que se estendem ao longo das linhas das plantas. Assim, esses emissores distribuem água uniformemente em toda a plantação.'
+ 
 
 export default function SingleLineImageList() {
   const classes = useStyles();
@@ -100,7 +100,7 @@ export default function SingleLineImageList() {
     <div className={classes.fundo}>
       <HeaderSider/>
       <div className={classes.root}>
-        <h1>Plantas</h1>
+        <Typography variant="h4" paragraph color='primary' style={{ fontWeight: 'bold' }}>Plantas </Typography>
         <Typography variant="h7" paragraph>{planta} </Typography>
 
         <div className={classes.rootText}>
@@ -120,8 +120,8 @@ export default function SingleLineImageList() {
           </ImageList>
         </div>
 
-        <h1>Irrigação</h1>
-          <Typography variant="h7" paragraph>{irrigacao} </Typography>
+        <Typography variant="h4" paragraph color='primary' style={{ fontWeight: 'bold', paddingTop: '20px' }}>Irrigação </Typography>
+        <Typography variant="h7" paragraph>{irrigacao} </Typography>
         
         <div className={classes.rootText}>
           <ImageList cols={4}>
