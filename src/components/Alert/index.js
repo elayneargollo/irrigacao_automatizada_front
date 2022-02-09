@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import  alertaAction  from '../../Action/alertaAction';
+import Alert from '@mui/material/Alert';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,27 +21,26 @@ export default function CustomizedSnackbars() {
   const classes = useStyles();
   const alert = useSelector(state => state.AlertaReducer.alert);
 
-  console.log('oi', alert);
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') return;
-    dispatch(alertaAction.exibirAlerta( false ));
+    dispatch(alertaAction.exibirAlerta(false));
   };
 
   return (
     <div className={classes.root} id="AlertComponent">
       <Snackbar
         open={alert?.mensagem}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
         onClose={handleClose}
       >
-        <MuiAlert
+        <Alert 
           elevation={6}
           variant="filled"
           onClose={handleClose}
           severity={alert?.tipo}
         >
           {alert?.mensagem}
-        </MuiAlert>
+        </Alert >
       </Snackbar>
     </div>
   );
