@@ -10,9 +10,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Logo from "../../assets/img/logo.png";
 import Fundo from "../../assets/img/fundo2.jpg";
 import { useNavigate } from 'react-router-dom';
-import { home } from '../../routes/paths';
+import { home, loginSistema } from '../../routes/paths';
 import { Context } from '../../Context/index';
 import Swal from 'sweetalert2'
+import Alert from '../../components/Alert/index';
 
 const styles = theme => ({
   main: {
@@ -59,20 +60,12 @@ const styles = theme => ({
   }
 });
 
-function MontarAlert(mensagem, icon) {
-  return Swal.fire({
-    text: mensagem,
-    icon: icon,
-    showConfirmButton: false,
-    timer: 1500
-  })
-}
-
 function SignIn(props) {
   const { classes } = props;
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [mensagemLogin, setMensagemLogin] = useState(null);
 
   // const { authenticated, handleLogin} = useContext(Context);
 
@@ -82,14 +75,14 @@ function SignIn(props) {
   // }
 
   const handleLogin = () => {
-    if(username === 'elayne.natalia@outlook.com' && password === 'senha')
+    if(username === 'e' && password === 'e')
     {
-      MontarAlert('Seja bem-vindo !', 'success');
+      setMensagemLogin({icon:'success', mensagem:'Seja bem-vindo !'});
       navigate(home);
     }
     else
     {
-      return MontarAlert('Usuário não cadastrado. Verifique sua credencial !', 'error');
+      setMensagemLogin({icon:'error', mensagem:'Usuário não cadastrado. Verifique sua credencial !'});
     }
   };
 
@@ -98,6 +91,8 @@ function SignIn(props) {
       <main className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
+
+      {mensagemLogin !== null && <Alert mensagem={mensagemLogin.mensagem} icon={mensagemLogin.icon} /> }
 
       <img src={Logo} alt='logotipo do sistema'/>
 
