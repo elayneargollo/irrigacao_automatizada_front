@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, BrowserRouter, Routes } from "react-router-dom";
+import React, { useContext }from "react";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import CadastroPlanta from '../pages/Plantas/Cadastrar/index';
 import CadastroRaspberry from '../pages/Configuracao/Cadastrar/index';
 import Home from '../pages/Root/index';
@@ -10,14 +10,27 @@ import Configuracao from '../pages/Configuracao/index';
 import Monitoramento from '../pages/Monitoramento/index';
 import Plantas from '../pages/Plantas/index';
 import Alert from '../components/Alert/index';
+import { Context } from '../contexts/auth'
+import { useNavigate } from 'react-router-dom';
 
 export const paths = require('./paths');
+
+function CustomRoute({ isPrivate, ...rest }) {
+  const { authenticated } = useContext(Context);
+  const navigate = useNavigate();
+
+  if (isPrivate && !authenticated) {
+    navigate(Login);
+  }
+  return <Route {...rest} />;
+}
 
 export default function Rotas() {
   return (
     <BrowserRouter>
-    <Alert/>
+      <Alert/>
       <Routes>
+        <Route exact path={paths.loginSistema} element={<Login/>} />
         <Route exact path={paths.cadastrarPlantas} element={<CadastroPlanta/>} />
         <Route exact path={paths.cadastrarRaspberry} element={<CadastroRaspberry/>} />
         <Route exact path={paths.home} element={<Home/>} />

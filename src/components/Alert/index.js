@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import { makeStyles } from '@material-ui/core/styles';
-import  alertaAction  from '../../Action/alertaAction';
+import  alertaAction  from '../../action/alertaAction';
 import Alert from '@mui/material/Alert';
 
 const useStyles = makeStyles(theme => ({

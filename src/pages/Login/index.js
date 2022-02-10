@@ -11,9 +11,7 @@ import Logo from "../../assets/img/logo.png";
 import Fundo from "../../assets/img/fundo2.jpg";
 import { useNavigate } from 'react-router-dom';
 import { home } from '../../routes/paths';
-import { Context } from '../../Context/index';
-import { useDispatch } from 'react-redux';
-import  alertaAction  from '../../Action/alertaAction';
+import { Context } from '../../contexts/auth';
 
 const styles = theme => ({
   main: {
@@ -62,30 +60,16 @@ const styles = theme => ({
 
 function SignIn(props) {
   const { classes } = props;
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { authenticated, handleLogin} = useContext(Context);
 
-  // const { authenticated, handleLogin} = useContext(Context);
-
-  // if(authenticated)
-  // {
-  //   navigate(home);
-  // }
-
-  const handleLogin = () => {
-    if(username === 'e' && password === 'e')
-    {
-      dispatch(alertaAction.exibirAlerta({ mensagem:'Seja bem-vindo !', tipo:'success' }));
-      navigate(home);
-    }
-    else
-    {
-      dispatch(alertaAction.exibirAlerta({ mensagem:'Usuário não cadastrado. Verifique sua credencial !', tipo:'error' }));
-    }
-  };
+  if(authenticated)
+  {
+    navigate(home);
+  }
 
   return (
     <div className={classes.image}>
@@ -102,19 +86,34 @@ function SignIn(props) {
 
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">E-mail</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus value={username} onChange={(e) => setUsername(e.target.value)}/>
+            <Input 
+              id="email" 
+              name="email" 
+              autoComplete="email" 
+              autoFocus 
+              value={username} 
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </FormControl>
 
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="password">Senha</InputLabel>
-            <Input name="password" type="password" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <Input 
+              name="password" 
+              type="password" 
+              id="password" 
+              autoComplete="current-password" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </FormControl>
 
           <Button className={classes.botao}
             fullWidth
             variant="contained"
             color="primary"
-            onClick={handleLogin}
+            //onClick={handleLogin}
+            onClick={() => handleLogin(username, password, navigate)}
           >
             Entrar
           </Button>
