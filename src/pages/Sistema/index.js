@@ -11,13 +11,19 @@ import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import HeaderSider from '../../components/HeaderSider/index';
 import Footer from '../../components/Footer/index';
+import Titulo from "../../components/Titulo/index";
+import Image from "../../assets/img/system.png";
+import Esquema from "../../assets/img/esquema.png";
+import EsquemaEletrico from "../../assets/img/esquemaEletrico.png";
+import Sensor from "../../assets/img/sensor.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: "auto",
     marginRight: "auto",
-    maxWidth: 1000,
-    marginTop: 120
+    maxWidth: '80%',
+    marginTop: 25,
+    backgroundImage: 'linear-gradient(#99C2B9,#FFFEFF,#FFFEFF, #FFFEFF, #FFFEFF)'
   },
   rootAcordeao: {
     width: '100%',
@@ -48,14 +54,11 @@ export default function Sistema() {
 
   return (
     <div className={classes.fundo}>
-      <HeaderSider/>
+      <Titulo titulo = "Sistema" imagem={Image}/>
+      <HeaderSider />
       <Card className={classes.root} variant="outlined">
-        <CardContent>
-          <Typography variant="h4" component="h2" color="primary">
-            Sistema
-          </Typography>
-
-          <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} >
+        <CardContent>       
+          <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} style={{ marginBottom: '20px'}} >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1bh-content"
@@ -70,7 +73,7 @@ export default function Sistema() {
             </AccordionDetails>
           </Accordion>
 
-          <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')} >
+          <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')} style={{ marginBottom: '20px'}} >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1bh-content"
@@ -81,14 +84,17 @@ export default function Sistema() {
             <AccordionDetails>
               <Typography>
               <List>
-                <ListItemText primary="Três solenoides normalmente fechada" />
-                <ListItemText primary="Mangueira" />
+                <ListItemText primary="Mangueira P/ Conexão Bomba Submersa Com Saída 1/2 Pol Eclusa " />
+                <ListItemText primary="10 Unidades De Divisor Conector Em T 4mm Branco" />
+                <ListItemText primary="Bicos Para Torneira Jardim 1/2 Ou 3/4 Tramontina Original" />
+                <ListItemText primary="Mangueira Para Filtro Electrolux Pa11b Pe11x Pa21g 1/4 2mts" />
+                <ListItemText primary="Gotejador" />
               </List>
               </Typography>
             </AccordionDetails>
           </Accordion>
 
-          <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')} >
+          <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')} style={{ marginBottom: '20px'}}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1bh-content"
@@ -97,9 +103,9 @@ export default function Sistema() {
             <Typography className={classes.heading}>Esquemas</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>
-               Teste
-              </Typography>
+              <img src={Esquema}/>
+              <img src={EsquemaEletrico}/>
+              <img src={Sensor}/>
             </AccordionDetails>
           </Accordion>
         </CardContent>

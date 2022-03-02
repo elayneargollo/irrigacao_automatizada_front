@@ -43,12 +43,12 @@ const columns = [
   {
     field: "porte",
     headerName: "Porte",
-    width: 300,
+    width: 250,
   },
   {
     field: 'Deletar',
     headerName: 'Deletar',
-    width: 300,
+    width: 150,
     renderCell: (params) => (
       <strong>
         {params.value}
@@ -65,7 +65,7 @@ const columns = [
   {
     field: 'Editar',
     headerName: 'Editar',
-    width: 300,
+    width: 200,
     renderCell: (params) => (
       <strong>
         <IconButton

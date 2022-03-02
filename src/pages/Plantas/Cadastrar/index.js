@@ -4,7 +4,6 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -15,13 +14,16 @@ import { plantas } from '../../../routes/paths';
 import clsx from 'clsx';
 import HeaderSider from '../../../components/HeaderSider/index';
 import Footer from '../../../components/Footer/index';
+import Logo from "../../../assets/img/folha.png";
+import Titulo from "../../../components/Titulo/index";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: "auto",
     marginRight: "auto",
-    maxWidth: 1000,
-    marginTop: 120
+    maxWidth: '80%',
+    marginTop: 25,
+    backgroundImage: 'linear-gradient(#99C2B9,#FFFEFF,#FFFEFF, #FFFEFF, #FFFEFF)'
   },
   rootForm: {
     display: 'flex',
@@ -77,12 +79,10 @@ export default function OutlinedCard() {
 
   return (
     <div className={classes.fundo}>
+      <Titulo titulo = "  Cadastro de Planta" imagem = {Logo}/>
       <HeaderSider />
       <Card className={classes.root} variant="outlined" >
         <CardContent>
-          <Typography variant="h4" component="h2" color="primary">
-            Cadastro de Planta
-          </Typography>
           <div>
             <TextField className={clsx(classes.margin, classes.textField)}
               id="margin-none"

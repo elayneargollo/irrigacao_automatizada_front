@@ -1,4 +1,4 @@
-import axios from '../../config/axios';
+import axios from '../../Config/axios';
 //import swal from 'sweetalert';
 
 export const login = user =>
