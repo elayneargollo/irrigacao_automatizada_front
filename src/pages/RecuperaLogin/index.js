@@ -10,14 +10,24 @@ import Logo from "../../assets/img/logo.png";
 import { useNavigate } from 'react-router-dom';
 import { loginSistema } from '../../routes/paths';
 import useStyles from './sytle';
+import { ValidationRequired } from "../../utils/validations.js";
+import { MSG_EMAIL } from "../../utils/resource";
+import swal from 'sweetalert';
 
 export default function RecuperaLogin() {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
 
-  const handleChangeAdd = () => navigate(loginSistema);
+  const handleChange = (email) => {    
+    var camposRequeridos = ValidationRequired(email,email);
+
+    if(camposRequeridos) return swal("Ocorreu um erro", `${camposRequeridos}`, "error");
+
+    swal(MSG_EMAIL);
+    navigate(loginSistema);
+  }
 
   return (
     <div className={classes.image}>
@@ -34,15 +44,15 @@ export default function RecuperaLogin() {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </FormControl>
             <Button className={classes.botao}
               fullWidth
               variant="contained"
               color="primary"
-              onClick={handleChangeAdd}
+              onClick={() => handleChange(email)}
             >
               Enviar
             </Button>

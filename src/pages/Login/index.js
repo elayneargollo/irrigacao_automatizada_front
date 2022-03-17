@@ -13,6 +13,8 @@ import { Context } from '../../contexts/auth';
 import useStyles from './sytle';
 import Link from '@material-ui/core/Link';
 import Grid from '@mui/material/Grid';
+import { ValidationLoginFields } from "../../utils/validations.js";
+import swal from 'sweetalert';
 
 export default function SignIn() {
   const classes = useStyles();
@@ -23,8 +25,14 @@ export default function SignIn() {
 
   const { authenticated, handleLogin } = useContext(Context);
 
-  if (authenticated) {
-    navigate(home);
+  const handleChange = (username, password) => {    
+    var camposRequeridos = ValidationLoginFields(username, password);
+
+    if(camposRequeridos) return swal("Ocorreu um erro", `${camposRequeridos}`, "error");
+
+    handleLogin(username, password, navigate);
+      
+    if (authenticated) navigate(home);
   }
 
   return (
@@ -61,7 +69,7 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               color="primary"
-              onClick={() => handleLogin(username, password, navigate)}
+              onClick={() => handleChange(username, password)}
             >
               Entrar
             </Button>

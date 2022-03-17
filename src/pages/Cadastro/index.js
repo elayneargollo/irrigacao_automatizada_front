@@ -12,6 +12,9 @@ import useStyles from './sytle';
 import Link from '@material-ui/core/Link';
 import Grid from '@mui/material/Grid';
 import Topography from '../../components/Topography';
+import { ValidationRequiredCadastro } from "../../utils/validations.js";
+import { MSG_CADASTRADO_SUCESSO } from "../../utils/resource";
+import swal from 'sweetalert';
 
 export default function SignIn() {
   const classes = useStyles();
@@ -19,6 +22,18 @@ export default function SignIn() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [nome, setNome] = useState('');
+  const [sobrenome, setSobrenome] = useState('');
+
+  const handleChange = (nome, sobrenome, username, password) => {    
+    let dados = { nome, sobrenome, username, password };
+    var camposRequeridos = ValidationRequiredCadastro(dados);
+
+    if(camposRequeridos) return swal("Ocorreu um erro", `${camposRequeridos}`, "error");
+
+    swal(MSG_CADASTRADO_SUCESSO);
+    navigate(loginSistema);
+  }
 
   return (
     <div className={classes.image}>
@@ -30,15 +45,15 @@ export default function SignIn() {
           <form className={classes.form}>
 
           <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="name">Nome</InputLabel>
+              <InputLabel htmlFor="nome">Nome</InputLabel>
               <Input
-                name="name"
-                type="name"
-                id="name"
+                name="nome"
+                type="nome"
+                id="nome"
                 autoFocus
                 autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
               />
             </FormControl>
 
@@ -49,8 +64,8 @@ export default function SignIn() {
                 type="sobrenome"
                 id="sobrenome"
                 autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={sobrenome}
+                onChange={(e) => setSobrenome(e.target.value)}
               />
             </FormControl>
 
@@ -80,6 +95,7 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               color="primary"
+              onClick={() => handleChange(nome, sobrenome, username, password)}
             >
               Inscreva-se
             </Button>
