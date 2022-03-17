@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
@@ -8,24 +8,16 @@ import Paper from '@material-ui/core/Paper';
 import Topography from '../../components/Topography';
 import Logo from "../../assets/img/logo.png";
 import { useNavigate } from 'react-router-dom';
-import { home, cadastrarNoSistema, recuperarConta } from '../../routes/paths';
-import { Context } from '../../contexts/auth';
+import { loginSistema } from '../../routes/paths';
 import useStyles from './sytle';
-import Link from '@material-ui/core/Link';
-import Grid from '@mui/material/Grid';
 
-export default function SignIn() {
+export default function RecuperaLogin() {
   const classes = useStyles();
   const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
-  const { authenticated, handleLogin } = useContext(Context);
-
-  if (authenticated) {
-    navigate(home);
-  }
+  const handleChangeAdd = () => navigate(loginSistema);
 
   return (
     <div className={classes.image}>
@@ -33,7 +25,7 @@ export default function SignIn() {
         <CssBaseline />
         <Paper className={classes.paper}>
           <img src={Logo} alt='logotipo do sistema' />
-          <Topography titulo = {' Login'}/>
+          <Topography titulo = {'Recuperar Conta'}/>
           <form className={classes.form}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">E-mail</InputLabel>
@@ -46,37 +38,14 @@ export default function SignIn() {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Senha</InputLabel>
-              <Input
-                name="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </FormControl>
             <Button className={classes.botao}
               fullWidth
               variant="contained"
               color="primary"
-              onClick={() => handleLogin(username, password, navigate)}
+              onClick={handleChangeAdd}
             >
-              Entrar
+              Enviar
             </Button>
-            <Grid container className={classes.espacamento}>
-              <Grid item xs>
-                <Link href={recuperarConta} variant="body2">
-                  Esqueceu a senha?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href={cadastrarNoSistema} variant="body2">
-                  {"Não tem uma conta? Inscreva-se"}
-                </Link>
-              </Grid>
-            </Grid>
           </form>
         </Paper>
       </main>
