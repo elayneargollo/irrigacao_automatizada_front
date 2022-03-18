@@ -120,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function MyApp() {
+export default function Plantas() {
   const classes = useStyles();
   const navigate = useNavigate();
 

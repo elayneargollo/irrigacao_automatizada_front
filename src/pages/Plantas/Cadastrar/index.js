@@ -16,6 +16,9 @@ import HeaderSider from '../../../components/HeaderSider/index';
 import Footer from '../../../components/Footer/index';
 import Logo from "../../../assets/img/folha.png";
 import Titulo from "../../../components/Titulo/index";
+import { ValidationAddPlanta } from "../../../utils/validations.js";
+import { MensagemCadastroComSucesso } from "../../../utils/resource";
+import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,12 +49,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function OutlinedCard() {
+export default function CadastrarPlantas() {
   const classes = useStyles();
+  const navigate = useNavigate();
+
   const [ambiente, setAmbiente] = React.useState('');
   const [porte, setPorte] = React.useState('');
+  const [nome, setNome] = React.useState('');
   const [solo, setSolo] = React.useState('');
   const [fruto, setFruto] = React.useState('');
+  const [tipoPlanta, setTipoPlanta] = React.useState('');
 
   const handleChange = (event) => {
     setAmbiente(event.target.value);
@@ -69,17 +76,23 @@ export default function OutlinedCard() {
     setFruto(event.target.value);
   };
 
-
-  const navigate = useNavigate();
-
   const handleChangeReturn = () => {
-    console.log('oi');
+    navigate(plantas);
+  }
+
+  const handleChangeSalvar = () => {
+    let dados = {ambiente, porte, solo, fruto, nome, tipoPlanta};
+    var camposRequeridos = ValidationAddPlanta(dados);
+
+    if(camposRequeridos) return swal("Ocorreu um erro", `${camposRequeridos}`, "error");
+
+    swal(MensagemCadastroComSucesso('Planta'));
     navigate(plantas);
   }
 
   return (
     <div className={classes.fundo}>
-      <Titulo titulo = "  Cadastro de Planta" imagem = {Logo}/>
+      <Titulo titulo = "Cadastro de Planta" imagem = {Logo}/>
       <HeaderSider />
       <Card className={classes.root} variant="outlined" >
         <CardContent>
@@ -88,6 +101,8 @@ export default function OutlinedCard() {
               id="margin-none"
               label="Nome Popular da Planta *"
               placeholder="Informe o nome da planta"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
             />
 
             <FormControl className={clsx(classes.margin, classes.textField)}>
@@ -109,6 +124,8 @@ export default function OutlinedCard() {
               id="margin-none"
               label="Tipo de Planta *"
               placeholder="Informe o tipo da planta"
+              value={tipoPlanta}
+              onChange={(e) => setTipoPlanta(e.target.value)}
             />
 
             <FormControl className={clsx(classes.margin, classes.textField)}>
@@ -154,11 +171,11 @@ export default function OutlinedCard() {
         </CardContent>
 
         <CardActions>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" onClick={handleChangeSalvar}>
             Salvar
           </Button>
 
-          <Button size="small" color="primary" >
+          <Button size="small" color="primary" onClick={handleChangeReturn}>
             Cancelar
           </Button>
 
