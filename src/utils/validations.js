@@ -22,7 +22,7 @@ export function ValidationAddPlanta(dados)
 {
   if(!dados.ambiente) return `Campo Ambiente é obrigatório`;
   if(!dados.porte) return `Campo Porte da Planta é obrigatório`;
-  if(!dados.solo) return `Campo Solo é obrigatório`;
+  if(!dados.tipoSolo) return `Campo Solo é obrigatório`;
   if(!dados.fruto) return `Campo Fruto é obrigatório`;
   if(!dados.nome) return `Campo Nome Popular da Planta é obrigatório`;
   if(!dados.tipoPlanta) return `Campo Tipo de Planta é obrigatório`;

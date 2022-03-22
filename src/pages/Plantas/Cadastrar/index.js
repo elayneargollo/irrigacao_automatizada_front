@@ -19,6 +19,7 @@ import Titulo from "../../../components/Titulo/index";
 import { ValidationAddPlanta } from "../../../utils/validations.js";
 import { MensagemCadastroComSucesso } from "../../../utils/resource";
 import swal from 'sweetalert';
+import { postPlantas } from '../../../services/api/planta';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,9 +57,10 @@ export default function CadastrarPlantas() {
   const [ambiente, setAmbiente] = React.useState('');
   const [porte, setPorte] = React.useState('');
   const [nome, setNome] = React.useState('');
-  const [solo, setSolo] = React.useState('');
+  const [tipoSolo, setTipoSolo] = React.useState('');
   const [fruto, setFruto] = React.useState('');
   const [tipoPlanta, setTipoPlanta] = React.useState('');
+  const [plantaId, setPlantaId,] = React.useState('');
 
   const handleChange = (event) => {
     setAmbiente(event.target.value);
@@ -69,7 +71,7 @@ export default function CadastrarPlantas() {
   };
 
   const handleChangeSolo = (event) => {
-    setSolo(event.target.value);
+    setTipoSolo(event.target.value);
   };
 
   const handleChangeFruto = (event) => {
@@ -81,11 +83,15 @@ export default function CadastrarPlantas() {
   }
 
   const handleChangeSalvar = () => {
-    let dados = {ambiente, porte, solo, fruto, nome, tipoPlanta};
+    let dados = {ambiente, porte, tipoSolo, fruto, nome, tipoPlanta};
     var camposRequeridos = ValidationAddPlanta(dados);
 
     if(camposRequeridos) return swal("Ocorreu um erro", `${camposRequeridos}`, "error");
 
+    let planta = { plantaId, nome, ambiente, tipoSolo, porte, fruto }
+
+    postPlantas(planta);
+    
     swal(MensagemCadastroComSucesso('Planta'));
     navigate(plantas);
   }
@@ -113,8 +119,8 @@ export default function CadastrarPlantas() {
                 value={fruto}
                 onChange={handleChangeFruto}
               >
-                <MenuItem value={10}>Sim</MenuItem>
-                <MenuItem value={20}>Não</MenuItem>
+                <MenuItem value={'sim'}>Sim</MenuItem>
+                <MenuItem value={'nao'}>Não</MenuItem>
               </Select>
             </FormControl >
           </div>
@@ -136,8 +142,8 @@ export default function CadastrarPlantas() {
                 value={ambiente}
                 onChange={handleChange}
               >
-                <MenuItem value={10}>Interno</MenuItem>
-                <MenuItem value={20}>Externo</MenuItem>
+                <MenuItem value={'interno'}>Interno</MenuItem>
+                <MenuItem value={'externo'}>Externo</MenuItem>
               </Select>
             </FormControl >
 
@@ -149,8 +155,8 @@ export default function CadastrarPlantas() {
                 value={porte}
                 onChange={handleChangePorte}
               >
-                <MenuItem value={10}>Média</MenuItem>
-                <MenuItem value={20}>Pequena</MenuItem>
+                <MenuItem value={'media'}>Média</MenuItem>
+                <MenuItem value={'pequena'}>Pequena</MenuItem>
               </Select>
             </FormControl >
 
@@ -159,12 +165,12 @@ export default function CadastrarPlantas() {
               <Select
                 labelId="demo-simple-select-label"
                 id="margin-none"
-                value={solo}
+                value={tipoSolo}
                 onChange={handleChangeSolo}
               >
-                <MenuItem value={10}>Arenoso</MenuItem>
-                <MenuItem value={20}>Argiloso</MenuItem>
-                <MenuItem value={30}>Argilo-Arenoso</MenuItem>
+                <MenuItem value={'arenoso'}>Arenoso</MenuItem>
+                <MenuItem value={'argiloso'}>Argiloso</MenuItem>
+                <MenuItem value={'argilo-arenoso'}>Argilo-Arenoso</MenuItem>
               </Select>
             </FormControl >
           </div>
