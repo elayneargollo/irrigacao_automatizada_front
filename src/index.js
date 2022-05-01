@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App/app';
-import store from './config/store/index';
+import store from './Config/store/index';
 import { Provider } from 'react-redux';
 
 import { ConfigProvider } from 'antd'

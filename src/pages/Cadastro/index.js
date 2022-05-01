@@ -1,21 +1,20 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
-import Topography from '../../components/Topography';
 import Logo from "../../assets/img/logo.png";
 import { useNavigate } from 'react-router-dom';
-import { home, cadastrarNoSistema, recuperarConta } from '../../routes/paths';
-import { Context } from '../../contexts/auth';
+import { loginSistema } from '../../routes/paths';
 import useStyles from './sytle';
 import Link from '@material-ui/core/Link';
 import Grid from '@mui/material/Grid';
-import { ValidationLoginFields } from "../../utils/validations.js";
+import Topography from '../../components/Topography';
+import { ValidationRequiredCadastro } from "../../utils/validations.js";
 import swal from 'sweetalert';
-import { login } from '../../services/api/users';
+import { cadastroUsuario } from '../../services/api/users';
 
 export default function SignIn() {
   const classes = useStyles();
@@ -23,21 +22,21 @@ export default function SignIn() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nome, setNome] = useState('');
+  const [sobrenome, setSobrenome] = useState('');
 
-  const { authenticated, handleLogin } = useContext(Context);
-
-  const handleChange = (email, password) => {    
-    var camposRequeridos = ValidationLoginFields(email, password);
-    let dados = { email, password };
+  async function handleChange(nome, sobrenome, email, password) {    
+    let dados = { nome, sobrenome, email, password };
+    var camposRequeridos = ValidationRequiredCadastro(dados);
 
     if(camposRequeridos) return swal("Ocorreu um erro", `${camposRequeridos}`, "error");
 
-    async function getResponse() {      
-      const res = await login(dados)
+    async function getResponse() {
+      const res = await cadastroUsuario(dados);
 
-      if (res.status === 200) {
-        handleLogin(email, password, navigate);
-        if (authenticated) navigate(home);
+      if (res.status === 201) {
+        swal(`${res.data.message}`);
+        navigate(loginSistema);
       }
       else{
         swal("Houve um erro", `${res.response.data.message}`, "error");
@@ -45,7 +44,6 @@ export default function SignIn() {
     }
 
     getResponse();
-
   }
 
   return (
@@ -54,19 +52,45 @@ export default function SignIn() {
         <CssBaseline />
         <Paper className={classes.paper}>
           <img src={Logo} alt='logotipo do sistema' />
-          <Topography titulo = {' Login'}/>
+          <Topography titulo = {'  Cadastre-se'}/>
           <form className={classes.form}>
+
+          <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="nome">Nome</InputLabel>
+              <Input
+                name="nome"
+                type="nome"
+                id="nome"
+                autoFocus
+                autoComplete="current-password"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+            </FormControl>
+
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="sobrenome">Sobrenome</InputLabel>
+              <Input
+                name="sobrenome"
+                type="sobrenome"
+                id="sobrenome"
+                autoComplete="current-password"
+                value={sobrenome}
+                onChange={(e) => setSobrenome(e.target.value)}
+              />
+            </FormControl>
+
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">E-mail</InputLabel>
               <Input
                 id="email"
                 name="email"
                 autoComplete="email"
-                autoFocus
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </FormControl>
+
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Senha</InputLabel>
               <Input
@@ -77,24 +101,19 @@ export default function SignIn() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-            </FormControl>
+            </FormControl>            
             <Button className={classes.botao}
               fullWidth
               variant="contained"
               color="primary"
-              onClick={() => handleChange(email, password)}
+              onClick={() => handleChange(nome, sobrenome, email, password)}
             >
-              Entrar
+              Inscreva-se
             </Button>
             <Grid container className={classes.espacamento}>
               <Grid item xs>
-                <Link href={recuperarConta} variant="body2">
-                  Esqueceu a senha?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href={cadastrarNoSistema} variant="body2">
-                  {"Não tem uma conta? Inscreva-se"}
+                <Link href={loginSistema} variant="body2">
+                    Já tem uma conta? Entrar
                 </Link>
               </Grid>
             </Grid>

@@ -1,6 +1,8 @@
 
 export const home = '/home';
 export const loginSistema = '/';
+export const cadastrarNoSistema = '/cadastrar';
+export const recuperarConta = '/recuperarConta';
 export const about = '/sobre';
 
 export const plantas = '/plantas';

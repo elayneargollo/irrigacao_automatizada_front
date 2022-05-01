@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 const useStyles = makeStyles((theme) => ({
     titulo:
     {
-        marginLeft: "220px",
+        marginLeft: "180px",
         marginRight: "auto",
         marginTop: 100,
         display: 'flex'

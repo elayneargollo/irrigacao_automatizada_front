@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { DataGrid } from '@mui/x-data-grid';
@@ -16,39 +16,16 @@ import Footer from '../../components/Footer/index';
 import './sytle.css';
 import Logo from "../../assets/img/folha.png";
 import Titulo from "../../components/Titulo/index";
+import { getPlantas } from '../../services/api/planta';
+import { useDispatch } from 'react-redux';
 
 const columns = [
-  {
-    field: "id",
-    headerName: "ID",
-    width: 100
-  },
-  {
-    field: "firstName",
-    headerName: "Nome Popular",
-    width: 300,
-    editable: false
-  },
-  {
-    field: "age",
-    headerName: "Ambiente",
-    width: 300,
-    editable: false
-  },
-  {
-    field: "lastName",
-    headerName: "Tipo de Solo",
-    width: 300,
-  },
-  {
-    field: "porte",
-    headerName: "Porte",
-    width: 300,
-  },
-  {
-    field: 'Deletar',
-    headerName: 'Deletar',
-    width: 300,
+  {  field: "id", headerName: "ID", width: 100 },
+  {  field: "nome", headerName: "Nome Popular", width: 300, editable: false  },
+  {  field: "ambiente", headerName: "Ambiente", width: 300, editable: false  },
+  {  field: "tipoSolo", headerName: "Tipo de Solo", width: 300 },
+  {  field: "porte", headerName: "Porte", width: 250 },
+  {  field: 'Deletar', headerName: 'Deletar', width: 150,
     renderCell: (params) => (
       <strong>
         {params.value}
@@ -63,9 +40,7 @@ const columns = [
     ),
   },
   {
-    field: 'Editar',
-    headerName: 'Editar',
-    width: 300,
+    field: 'Editar', headerName: 'Editar', width: 200,
     renderCell: (params) => (
       <strong>
         <IconButton
@@ -84,13 +59,13 @@ const handleChangeEdit = (params) => console.log(`Edite => ${params.id}`);
 
 const handleChangeDelete = (params) => console.log(`Delete => ${params.id}`);
 
-const rows = [
-  { id: 1, firstName: "Palmeira", lastName: "Arenoso", age: 'Interno', porte: 'Médio' },
-  { id: 2, firstName: "Girassol", lastName: "Argiloso", age: 'Interno', porte: 'Pequeno' },
-  { id: 3, firstName: "Lannister", lastName: "Arenoso", age: 'Externo', porte: 'Médio' },
-  { id: 4, firstName: "Stark", lastName: "Argilo-Arenoso", age: 'Interno', porte: 'Pequeno' },
-  { id: 5, firstName: "Targaryen", lastName: "Argiloso", age: 'Externo', porte: 'Pequeno' }
-];
+// const rows = [
+//   { id: 1, firstName: "Palmeira", lastName: "Arenoso", age: 'Interno', porte: 'Médio' },
+//   { id: 2, firstName: "Girassol", lastName: "Argiloso", age: 'Interno', porte: 'Pequeno' },
+//   { id: 3, firstName: "Lannister", lastName: "Arenoso", age: 'Externo', porte: 'Médio' },
+//   { id: 4, firstName: "Stark", lastName: "Argilo-Arenoso", age: 'Interno', porte: 'Pequeno' },
+//   { id: 5, firstName: "Targaryen", lastName: "Argiloso", age: 'Externo', porte: 'Pequeno' }
+// ];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,11 +95,33 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function MyApp() {
+export default function Plantas() {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [plantas, setPlantas] = useState({});
 
   const handleChangeAdd = () => navigate(cadastrarPlantas);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function getItems() {
+      const data = await getPlantas();
+      setPlantas(data?.data?.plantas);
+    }
+    getItems();
+  },[dispatch]);
+
+  const montarDados = () => {
+    return plantas.map(planta => {
+      return {
+        id: planta.plantaId,
+        nome: planta.nome,
+        ambiente: planta.ambiente,
+        tipoSolo: planta.tipoSolo,
+        porte: planta.porte
+      }
+    });
+  }
 
   return (
     <div className={classes.fundo}>
@@ -147,9 +144,11 @@ export default function MyApp() {
 
         <div style={{ height: 450, marginLeft: "10px", marginRight: "10px", paddingTop: "50px"}}>
           <DataGrid
-            rows={rows}
             columns={columns}
-          />
+            rows={montarDados()}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+          />       
         </div>
       </Card>
       <Footer/>

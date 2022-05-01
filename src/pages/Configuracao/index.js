@@ -1,7 +1,6 @@
 import * as React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import { DataGrid } from '@mui/x-data-grid';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
@@ -10,28 +9,29 @@ import IconButton from '@material-ui/core/IconButton';
 import { useNavigate } from 'react-router-dom';
 import { cadastrarRaspberry } from '../../routes/paths';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Tooltip from '@material-ui/core/Tooltip';
 import HeaderSider from '../../components/HeaderSider/index';
 import Footer from '../../components/Footer/index';
+import Titulo from "../../components/Titulo/index";
+import Image from "../../assets/img/system.png";
 
 const columns = [
   {
     field: "id",
     headerName: "ID",
-    width: 100
+    width: 150
   },
   {
     field: "modelo",
     headerName: "Modelo",
-    width: 250,
+    width: 300,
     editable: false
   },
   {
     field: "marca",
     headerName: "Marca",
-    width: 250,
+    width: 300,
     editable: false
   },
   {
@@ -42,12 +42,12 @@ const columns = [
   {
     field: "numeroPeca",
     headerName: "Número da peça",
-    width: 150,
+    width: 250,
   },
   {
     field: 'Deletar',
     headerName: 'Deletar',
-    width: 110,
+    width: 230,
     renderCell: (params) => (
       <strong>
         {params.value}
@@ -64,7 +64,7 @@ const columns = [
   {
     field: 'Editar',
     headerName: 'Editar',
-    width: 110,
+    width: 150,
     renderCell: (params) => (
       <strong>
         <IconButton
@@ -95,8 +95,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: "auto",
     marginRight: "auto",
-    maxWidth: 1200,
-    marginTop: 120
+    maxWidth: '80%',
+    marginTop: 25,
+    backgroundImage: 'linear-gradient(#99C2B9,#FFFEFF,#FFFEFF, #FFFEFF, #FFFEFF)'
   },
   tooltip: {
     backgroundColor: theme.palette.common.white,
@@ -119,15 +120,12 @@ export default function MyApp() {
 
   return (
     <div className={classes.fundo}>
+      <Titulo titulo = "Raspberry Pi" imagem={Image}/>
       <HeaderSider />
       <Card className={classes.root} variant="outlined" style={{ height: 650, width: '100%'}} >
-        <CardContent>
-          <Typography variant="h4" component="h2" color="primary">Raspberry Pi</Typography>
-        </CardContent>
-
         <CardActions>
           <Tooltip title="Adicionar um novo Raspberry Pi ao sistema" arrow>
-            <Button
+            <Button style={{ fontWeight: 'bold', fontSize: "20px"}}
               variant="outlined"
               color="primary"
               onClick={handleChangeAdd}

@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
-import axios from '../config/axios';
+import axios from '../Config/axios';
 import { login } from '../services/api/users';
+import swal from 'sweetalert';
 
 const Context = createContext();
 
@@ -18,11 +19,13 @@ function AuthProvider({ children }) {
     }, []);
 
 
-    async function handleLogin(username, password) {
+    async function handleLogin(email, password) {
 
         try {
-            let credentials = { username, password };
+            let credentials = { email, password };
+
             const { data: { token, user_id } } = await login(credentials)
+  
             localStorage.setItem('token', JSON.stringify(token))
             localStorage.setItem('id', user_id)
             axios.defaults.headers.Authorization = `Token ${token}`;
@@ -30,6 +33,7 @@ function AuthProvider({ children }) {
             setAuthenticated(true);
 
         } catch (error) {
+            swal("Ocorreu um erro", `${error.response.data.message}`, "error");
             return;
         }
 

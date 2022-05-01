@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# Sistema de Irrigação Autônoma de Planta usando Raspberry Pi 4 - FrontEnd
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto final de conclusão de curso ADS-IFBA
 
-## Available Scripts
+## Conteúdo
 
-In the project directory, you can run:
+- [Pré-requisitos](#pré-requisitos)
+- [Execução Aplicação](#execução)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Pré-requisitos
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Estas são as instalações e configurações necessárias para executar o projeto.
 
-### `npm test`
+Para executar este projeto é necessário instalar:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js v14
 
-### `npm run build`
+1. Após a instalação
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   - Execute o seguinte comando no terminal 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+        node -version
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    - Resultado esperado
 
-### `npm run eject`
+        v14.18.0
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Execução
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clonar repositório git utilizando o comando:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+        git clone git@github.com:elayneargollo/tcc-front.git
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. Vá ate a pasta do projeto
 
-## Learn More
+        cd tcc-front
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. Instale as dependências
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+        npm install
+        
+4. Execute o programa
 
-### Code Splitting
+        npm start
+         
+Após a execução a inicialização conseguirá acessar:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   - Raiz da API: http://localhost:3000
 
-### Analyzing the Bundle Size
+### Autora
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/48841005?s=40&v=4" width="100px;" alt=""/>
+ 
+Feito por Elayne Natália 👋🏽 
 
-### Making a Progressive Web App
+[![Linkedin Badge](https://img.shields.io/badge/-Elayne-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/elayne/)](https://www.linkedin.com/in/elayne-nat%C3%A1lia/) 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

@@ -4,6 +4,8 @@ import CadastroPlanta from '../pages/Plantas/Cadastrar/index';
 import CadastroRaspberry from '../pages/Configuracao/Cadastrar/index';
 import Home from '../pages/Root/index';
 import Login from '../pages/Login/index';
+import CadastrarUsuario from '../pages/Cadastro/index';
+import RecuperarConta from '../pages/RecuperaLogin/index';
 import Sobre from '../pages/About/index';
 import Sistema from '../pages/Sistema/index';
 import Configuracao from '../pages/Configuracao/index';
@@ -31,6 +33,8 @@ export default function Rotas() {
       <Alert/>
       <Routes>
         <Route exact path={paths.loginSistema} element={<Login/>} />
+        <Route exact path={paths.cadastrarNoSistema} element={<CadastrarUsuario/>} />
+        <Route exact path={paths.recuperarConta} element={<RecuperarConta/>} />
         <Route exact path={paths.cadastrarPlantas} element={<CadastroPlanta/>} />
         <Route exact path={paths.cadastrarRaspberry} element={<CadastroRaspberry/>} />
         <Route exact path={paths.home} element={<Home/>} />
