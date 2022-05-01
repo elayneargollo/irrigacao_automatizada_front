@@ -20,11 +20,11 @@ Para executar este projeto é necessário instalar:
 
    - Execute o seguinte comando no terminal 
 
-        node -version
+         node -version
 
     - Resultado esperado
 
-        v14.18.0
+          v14.18.0
 
 ## Execução
 
