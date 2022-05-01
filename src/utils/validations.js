@@ -14,7 +14,7 @@ export function ValidationRequiredCadastro(dados)
 {
   if(!dados.nome) return `Campo Nome é obrigatório`;
   if(!dados.sobrenome) return `Campo Sobrenome é obrigatório`;
-  if(!dados.username) return `Campo E-mail é obrigatório`;
+  if(!dados.email) return `Campo E-mail é obrigatório`;
   if(!dados.password) return `Campo Senha é obrigatório`;
 }
 

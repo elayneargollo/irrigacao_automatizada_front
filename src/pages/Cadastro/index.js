@@ -13,26 +13,37 @@ import Link from '@material-ui/core/Link';
 import Grid from '@mui/material/Grid';
 import Topography from '../../components/Topography';
 import { ValidationRequiredCadastro } from "../../utils/validations.js";
-import { MSG_CADASTRADO_SUCESSO } from "../../utils/resource";
 import swal from 'sweetalert';
+import { cadastroUsuario } from '../../services/api/users';
 
 export default function SignIn() {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nome, setNome] = useState('');
   const [sobrenome, setSobrenome] = useState('');
 
-  const handleChange = (nome, sobrenome, username, password) => {    
-    let dados = { nome, sobrenome, username, password };
+  async function handleChange(nome, sobrenome, email, password) {    
+    let dados = { nome, sobrenome, email, password };
     var camposRequeridos = ValidationRequiredCadastro(dados);
 
     if(camposRequeridos) return swal("Ocorreu um erro", `${camposRequeridos}`, "error");
 
-    swal(MSG_CADASTRADO_SUCESSO);
-    navigate(loginSistema);
+    async function getResponse() {
+      const res = await cadastroUsuario(dados);
+
+      if (res.status === 201) {
+        swal(`${res.data.message}`);
+        navigate(loginSistema);
+      }
+      else{
+        swal("Houve um erro", `${res.response.data.message}`, "error");
+      }
+    }
+
+    getResponse();
   }
 
   return (
@@ -75,8 +86,8 @@ export default function SignIn() {
                 id="email"
                 name="email"
                 autoComplete="email"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </FormControl>
 
@@ -95,7 +106,7 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               color="primary"
-              onClick={() => handleChange(nome, sobrenome, username, password)}
+              onClick={() => handleChange(nome, sobrenome, email, password)}
             >
               Inscreva-se
             </Button>

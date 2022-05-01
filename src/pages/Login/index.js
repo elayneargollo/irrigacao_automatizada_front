@@ -15,24 +15,37 @@ import Link from '@material-ui/core/Link';
 import Grid from '@mui/material/Grid';
 import { ValidationLoginFields } from "../../utils/validations.js";
 import swal from 'sweetalert';
+import { login } from '../../services/api/users';
 
 export default function SignIn() {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const { authenticated, handleLogin } = useContext(Context);
 
-  const handleChange = (username, password) => {    
-    var camposRequeridos = ValidationLoginFields(username, password);
+  const handleChange = (email, password) => {    
+    var camposRequeridos = ValidationLoginFields(email, password);
+    let dados = { email, password };
 
     if(camposRequeridos) return swal("Ocorreu um erro", `${camposRequeridos}`, "error");
 
-    handleLogin(username, password, navigate);
-      
-    if (authenticated) navigate(home);
+    async function getResponse() {      
+      const res = await login(dados)
+
+      if (res.status === 200) {
+        handleLogin(email, password, navigate);
+        if (authenticated) navigate(home);
+      }
+      else{
+        swal("Houve um erro", `${res.response.data.message}`, "error");
+      }
+    }
+
+    getResponse();
+
   }
 
   return (
@@ -50,8 +63,8 @@ export default function SignIn() {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
@@ -69,7 +82,7 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               color="primary"
-              onClick={() => handleChange(username, password)}
+              onClick={() => handleChange(email, password)}
             >
               Entrar
             </Button>
