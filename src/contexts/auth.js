@@ -26,8 +26,6 @@ function AuthProvider({ children }) {
             let credentials = { email, password };
 
             const { data: { access_token, user_id } } = await login(credentials)
-
-            console.log(await login(credentials));
   
             localStorage?.setItem('token', JSON.stringify(access_token))
             localStorage?.setItem('id', user_id)
