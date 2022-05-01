@@ -3,6 +3,7 @@ import axios from '../Config/axios';
 import { login } from '../services/api/users';
 import swal from 'sweetalert';
 
+export const getToken = () => localStorage.getItem('token');
 const Context = createContext();
 
 function AuthProvider({ children }) {
@@ -24,11 +25,13 @@ function AuthProvider({ children }) {
         try {
             let credentials = { email, password };
 
-            const { data: { token, user_id } } = await login(credentials)
+            const { data: { access_token, user_id } } = await login(credentials)
+
+            console.log(await login(credentials));
   
-            localStorage.setItem('token', JSON.stringify(token))
-            localStorage.setItem('id', user_id)
-            axios.defaults.headers.Authorization = `Token ${token}`;
+            localStorage?.setItem('token', JSON.stringify(access_token))
+            localStorage?.setItem('id', user_id)
+            axios.defaults.headers.Authorization = `Token ${access_token}`;
 
             setAuthenticated(true);
 
