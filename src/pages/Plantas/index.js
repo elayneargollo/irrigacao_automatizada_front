@@ -113,15 +113,15 @@ export default function Plantas() {
 
   const montarDados = () => {
     console.log(plantas.length === 0);
-    // return plantas.map(planta => {
-    //   return {
-    //     id: planta?.plantaId,
-    //     nome: planta?.nome,
-    //     ambiente: planta?.ambiente,
-    //     tipoSolo: planta?.tipoSolo,
-    //     porte: planta?.porte
-    //   }
-    // });
+    return plantas.map(planta => {
+      return {
+        id: planta?.plantaId,
+        nome: planta?.nome,
+        ambiente: planta?.ambiente?.tipoAmbiente,
+        tipoSolo: planta?.tipoSolo?.tipoSolo,
+        porte: planta?.porte?.descricao
+      }
+    });
   }
 
   return (
