@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { DataGrid } from '@mui/x-data-grid';
 import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import { useNavigate } from 'react-router-dom';
@@ -16,16 +15,19 @@ import Footer from '../../components/Footer/index';
 import './sytle.css';
 import Logo from "../../assets/img/folha.png";
 import Titulo from "../../components/Titulo/index";
-import { getPlantas } from '../../services/api/planta';
+import { getPlantas, deleteByIdPlantas } from '../../services/api/planta';
 import { useDispatch } from 'react-redux';
+import swal from 'sweetalert';
+
 
 const columns = [
-  {  field: "id", headerName: "ID", width: 100 },
-  {  field: "nome", headerName: "Nome Popular", width: 300, editable: false  },
-  {  field: "ambiente", headerName: "Ambiente", width: 300, editable: false  },
+  {  field: "id", headerName: "ID", width: 80 },
+  {  field: "nome", headerName: "Nome Popular", width: 250, editable: false  },
+  {  field: "ambiente", headerName: "Ambiente", width: 250, editable: false  },
   {  field: "tipoSolo", headerName: "Tipo de Solo", width: 300 },
   {  field: "porte", headerName: "Porte", width: 250 },
-  {  field: 'Deletar', headerName: 'Deletar', width: 150,
+  {  field: "fruto", headerName: "Fruto", width: 250 },
+  {  field: 'Deletar', headerName: 'Deletar', width: 250,
     renderCell: (params) => (
       <strong>
         {params.value}
@@ -38,26 +40,27 @@ const columns = [
         </IconButton>
       </strong>
     ),
-  },
-  {
-    field: 'Editar', headerName: 'Editar', width: 200,
-    renderCell: (params) => (
-      <strong>
-        <IconButton
-          aria-label="Eidtar"
-          title="Editar planta"
-          onClick={() => handleChangeEdit(params)}
-        >
-          <EditIcon color="primary" />
-        </IconButton>
-      </strong>
-    ),
-  },
+  }
 ];
 
-const handleChangeEdit = (params) => console.log(`Edite => ${params.id}`);
+const handleChangeDelete = (params) => {
+  console.log(`Delete => ${params.id}`);
 
-const handleChangeDelete = (params) => console.log(`Delete => ${params.id}`);
+  async function deletarPlanta() {
+    const res = await deleteByIdPlantas(params.id);
+    console.log(res);
+
+    if(res.status === 200)
+    {
+      swal(`${res.data.message}`);
+    }
+    else{
+      swal("Houve um erro", `${res.response.data.message}`, "error");
+    }
+  }
+
+  deletarPlanta();
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -113,7 +116,8 @@ export default function Plantas() {
         nome: planta?.nome,
         ambiente: planta?.ambiente?.tipoAmbiente,
         tipoSolo: planta?.tipoSolo?.tipoSolo,
-        porte: planta?.porte?.descricao
+        porte: planta?.porte?.descricao,
+        fruto: planta?.fruto
       }
     });
   }

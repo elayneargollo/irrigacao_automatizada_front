@@ -17,12 +17,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InfoIcon from '@material-ui/icons/Info';
 import Home from '@material-ui/icons/Home';
-import SettingsIcon from '@material-ui/icons/Settings';
 import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
 import BuildIcon from '@material-ui/icons/Build';
 import EcoIcon from '@material-ui/icons/Eco';
 import { useNavigate } from 'react-router-dom';
-import { home, about, configuracao, monitoramento, sistema, plantas } from '../../routes/paths';
+import { home, about, monitoramento, sistema, plantas } from '../../routes/paths';
 
 const drawerWidth = 200;
 
@@ -98,11 +97,6 @@ const menuItens = [
     text: 'Sistema',
     icon: <BuildIcon style={{ color: '#ffff' }} />,
     path: sistema
-  },
-  {
-    text: 'Configuração',
-    icon: <SettingsIcon style={{ color: '#ffff' }}/>,
-    path: configuracao
   },
   {
     text: 'Sobre',
