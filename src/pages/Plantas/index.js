@@ -59,14 +59,6 @@ const handleChangeEdit = (params) => console.log(`Edite => ${params.id}`);
 
 const handleChangeDelete = (params) => console.log(`Delete => ${params.id}`);
 
-// const rows = [
-//   { id: 1, firstName: "Palmeira", lastName: "Arenoso", age: 'Interno', porte: 'Médio' },
-//   { id: 2, firstName: "Girassol", lastName: "Argiloso", age: 'Interno', porte: 'Pequeno' },
-//   { id: 3, firstName: "Lannister", lastName: "Arenoso", age: 'Externo', porte: 'Médio' },
-//   { id: 4, firstName: "Stark", lastName: "Argilo-Arenoso", age: 'Interno', porte: 'Pequeno' },
-//   { id: 5, firstName: "Targaryen", lastName: "Argiloso", age: 'Externo', porte: 'Pequeno' }
-// ];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: "auto",
@@ -112,8 +104,10 @@ export default function Plantas() {
   },[dispatch]);
 
   const montarDados = () => {
-    console.log(plantas.length === 0);
-    return plantas.map(planta => {
+    if(typeof plantas.length === "undefined")
+      return;
+
+    return plantas?.map(planta => {
       return {
         id: planta?.plantaId,
         nome: planta?.nome,

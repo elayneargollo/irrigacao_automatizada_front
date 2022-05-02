@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -20,6 +20,10 @@ import { ValidationAddPlanta } from "../../../utils/validations.js";
 import { MensagemCadastroComSucesso } from "../../../utils/resource";
 import swal from 'sweetalert';
 import { postPlantas } from '../../../services/api/planta';
+import { getAmbientes } from '../../../services/api/ambiente';
+import { getPortes } from '../../../services/api/porte';
+import { getSolos } from '../../../services/api/solo';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,24 +58,50 @@ export default function CadastrarPlantas() {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const [ambiente, setAmbiente] = React.useState('');
-  const [porte, setPorte] = React.useState('');
+  const [ambientes, setAmbiente] = React.useState('');
+  const [portes, setPortes] = React.useState('');
+  const [solos, setSolos] = React.useState('');
   const [nome, setNome] = React.useState('');
-  const [tipoSolo, setTipoSolo] = React.useState('');
   const [fruto, setFruto] = React.useState('');
-  const [tipoPlanta, setTipoPlanta] = React.useState('');
-  const [plantaId, setPlantaId,] = React.useState('');
+  const [ambienteId, setAmbienteId] = React.useState('');
+  const [porteId, setPorteId] = React.useState('');
+  const [soloId, setSoloId] = React.useState('');
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+
+    async function getAmbiente() {
+      const response = await getAmbientes();
+      setAmbiente(response?.data.ambientes);
+    }
+
+    async function getPorte() {
+      const response = await getPortes();
+      setPortes(response?.data.portes);
+    }
+
+    async function getSolo() {
+      const response = await getSolos();
+      setSolos(response?.data.solos);
+    }
+    
+    getAmbiente();
+    getPorte();
+    getSolo();
+
+  },[dispatch]);
 
   const handleChange = (event) => {
-    setAmbiente(event.target.value);
+    setAmbienteId(event.target.value);
   };
 
   const handleChangePorte = (event) => {
-    setPorte(event.target.value);
+    setPorteId(event.target.value);
   };
 
   const handleChangeSolo = (event) => {
-    setTipoSolo(event.target.value);
+    setSoloId(event.target.value);
   };
 
   const handleChangeFruto = (event) => {
@@ -83,17 +113,24 @@ export default function CadastrarPlantas() {
   }
 
   const handleChangeSalvar = () => {
-    let dados = {ambiente, porte, tipoSolo, fruto, nome, tipoPlanta};
+    let dados = {nome, fruto, ambienteId, tipoSoloId: soloId, porteId };
     var camposRequeridos = ValidationAddPlanta(dados);
 
     if(camposRequeridos) return swal("Ocorreu um erro", `${camposRequeridos}`, "error");
 
-    let planta = { plantaId, nome, ambiente, tipoSolo, porte, fruto }
+    async function getResponse() {
+      const res = await postPlantas(dados);
 
-    postPlantas(planta);
-    
-    swal(MensagemCadastroComSucesso('Planta'));
-    navigate(plantas);
+      if (res.status === 200) {
+        swal(MensagemCadastroComSucesso('Planta'));
+        navigate(plantas);
+      }
+      else{
+        swal("Houve um erro", `${res.response.data.message}`, "error");
+      }
+    }
+
+    getResponse();
   }
 
   return (
@@ -126,24 +163,18 @@ export default function CadastrarPlantas() {
           </div>
 
           <div>
-            <TextField className={clsx(classes.margin, classes.textField)}
-              id="margin-none"
-              label="Tipo de Planta *"
-              placeholder="Informe o tipo da planta"
-              value={tipoPlanta}
-              onChange={(e) => setTipoPlanta(e.target.value)}
-            />
-
             <FormControl className={clsx(classes.margin, classes.textField)}>
               <InputLabel id="demo-simple-select-label">Ambiente *</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="margin-none"
-                value={ambiente}
+                value={ambienteId}
                 onChange={handleChange}
-              >
-                <MenuItem value={'interno'}>Interno</MenuItem>
-                <MenuItem value={'externo'}>Externo</MenuItem>
+              >                
+               {ambientes.length > 0 && ambientes.map(ambiente => (
+                  <MenuItem value={ambiente?.ambienteId}>{ambiente?.tipoAmbiente}</MenuItem>
+                ))};
+          
               </Select>
             </FormControl >
 
@@ -152,11 +183,13 @@ export default function CadastrarPlantas() {
               <Select
                 labelId="demo-simple-select-label"
                 id="margin-none"
-                value={porte}
+                value={porteId}
                 onChange={handleChangePorte}
               >
-                <MenuItem value={'media'}>Média</MenuItem>
-                <MenuItem value={'pequena'}>Pequena</MenuItem>
+                {portes.length > 0 && portes.map(porte => (
+                  <MenuItem value={porte?.porteId}>{porte?.descricao}</MenuItem>
+                ))};
+        
               </Select>
             </FormControl >
 
@@ -165,12 +198,13 @@ export default function CadastrarPlantas() {
               <Select
                 labelId="demo-simple-select-label"
                 id="margin-none"
-                value={tipoSolo}
+                value={soloId}
                 onChange={handleChangeSolo}
               >
-                <MenuItem value={'arenoso'}>Arenoso</MenuItem>
-                <MenuItem value={'argiloso'}>Argiloso</MenuItem>
-                <MenuItem value={'argilo-arenoso'}>Argilo-Arenoso</MenuItem>
+                 {solos.length > 0 && solos.map(solo => (
+                  <MenuItem value={solo?.soloId}>{solo?.tipoSolo}</MenuItem>
+                ))};
+               
               </Select>
             </FormControl >
           </div>

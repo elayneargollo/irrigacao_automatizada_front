@@ -3,8 +3,9 @@ import axios from '../../Config/axios';
 export const postPlantas = planta =>
 {
     return axios
-    .post(`/plantas/${planta.nome}`, planta)
+    .post(`/plantas/`, planta)
     .then(response => {
+        console.log(planta);
         return response;
     })
     .catch(error => {
