@@ -16,6 +16,7 @@ import Image from "../../assets/img/system.png";
 import Esquema from "../../assets/img/esquema.png";
 import EsquemaEletrico from "../../assets/img/esquemaEletrico.png";
 import Sensor from "../../assets/img/sensor.png";
+import CheckIcon from '@mui/icons-material/Check';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,11 +65,14 @@ export default function Sistema() {
               aria-controls="panel1bh-content"
               id="panel1bh-header"
             >
-            <Typography className={classes.heading}>Informação Geral</Typography>
+            <Typography variant="h6" style={{ color: '#338573' }}>Informação Geral</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                Sistema possui um total de três plantas cadastradas.
+                <List>
+                  <ListItemText primary="Alimentação da solenóide: 110V" />
+                  <ListItemText primary="Alimentação do raspberry: 5V" />
+                </List>
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -79,7 +83,7 @@ export default function Sistema() {
               aria-controls="panel1bh-content"
               id="panel1bh-header"
             >
-            <Typography className={classes.heading}>Equipamentos</Typography>
+            <Typography variant="h6" style={{ color: '#338573' }}>Equipamentos</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
@@ -100,7 +104,7 @@ export default function Sistema() {
               aria-controls="panel1bh-content"
               id="panel1bh-header"
             >
-            <Typography className={classes.heading}>Esquemas</Typography>
+            <Typography variant="h6" style={{ color: '#338573' }}>Esquemas</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <img src={Esquema}/>
