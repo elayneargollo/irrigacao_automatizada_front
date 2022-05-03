@@ -23,6 +23,7 @@ export default function Rotas() {
       <Routes>
         { 
         <Route exact path={paths.loginSistema} element={<Login/>} /> }
+        <Route exact path={paths.monitoramento} element={<Monitoramento/>} /> 
         <Route exact path={paths.cadastrarNoSistema} element={<CadastrarUsuario/>} />
         <Route exact path={paths.recuperarConta} element={<RecuperarConta/>} />
         <Route exact path={paths.home} element={<Home/>} />
@@ -31,9 +32,9 @@ export default function Rotas() {
           <Route exact path={paths.about}  element={<Sobre/>}/>
         </Route>
 
-        <Route exact path={paths.monitoramento}  element={<PrivateRoute/>}>
+        {/* <Route exact path={paths.monitoramento}  element={<PrivateRoute/>}>
           <Route exact path={paths.monitoramento}  element={<Monitoramento/>}/>
-        </Route>
+        </Route> */}
 
         <Route exact path={paths.sistema}  element={<PrivateRoute/>}>
           <Route exact path={paths.sistema}  element={<Sistema/>}/>

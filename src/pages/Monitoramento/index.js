@@ -1,11 +1,24 @@
-import React from 'react';
-import Card from '@material-ui/core/Card';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import { DataGrid } from '@mui/x-data-grid';
+import Card from '@material-ui/core/Card';
 import HeaderSider from '../../components/HeaderSider/index';
 import Footer from '../../components/Footer/index';
+import './sytle.css';
 import Titulo from "../../components/Titulo/index";
+import { getPlantas } from '../../services/api/planta';
+import { useDispatch } from 'react-redux';
 import Image from "../../assets/img/analytics.png";
+
+const columns = [
+  {  field: "nome", headerName: "Nome da Planta", width: 250, editable: false  },
+  {  field: "tipoSolo", headerName: "Tipo de Solo", width: 300 },
+  {  field: "gotejamento", headerName: "Gotejamento", type: 'boolean', width: 250, editable: false  },
+  {  field: "irrigada", headerName: "Irrigada", type: 'boolean', width: 250 },
+  {  field: "solenoide", headerName: "Solenóide", width: 250 },
+  {  field: "sensor", headerName: "Sensor", width: 250 },
+  {  field: "status", headerName: "Status", width: 250 },
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,75 +48,51 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const rows = [
-  {
-    id: 1,
-    Nome: 'Palmeira',
-    TipoSolo: 'Arenoso',
-    Gotejamento: true,
-    Irrigada: false,
-    Solenoide: 'S1',
-    Sensor: 'Se1',
-    Status: 'Ativo'
-  },
-  {
-    id: 2,
-    Nome: 'Girassol',
-    TipoSolo: 'Arenoso-Argiloso',
-    Gotejamento: true,
-    Irrigada: false,
-    Solenoide: 'S2',
-    Sensor: 'Se2',
-    Status: 'Ativo'
-  },
-  {
-    id: 3,
-    Nome: 'Cacto',
-    TipoSolo: 'Argiloso',
-    Gotejamento: true,
-    Irrigada: false,
-    Solenoide: 'S3',
-    Sensor: 'Se3',
-    Status: 'Inativo'
-  },
-  {
-    id: 4,
-    Nome: 'Cacto',
-    TipoSolo: 'Argiloso',
-    Gotejamento: true,
-    Irrigada: false,
-    Solenoide: 'S3',
-    Sensor: 'Se3',
-    Status: 'Inativo'
-  },
-  {
-    id: 5,
-    Nome: 'Cacto',
-    TipoSolo: 'Argiloso',
-    Gotejamento: true,
-    Irrigada: false,
-    Solenoide: 'S3',
-    Sensor: 'Se3',
-    Status: 'Inativo'
-  },
-];
-
-export default function Monitoramento() {
+export default function Plantas() {
   const classes = useStyles();
+  const [plantas, setPlantas] = useState({});
+
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   async function getItems() {
+  //     const data = await getPlantas();
+  //     setPlantas(data?.data?.plantas);
+  //   }
+  //   getItems();
+  // },[dispatch]);
+
+  const montarDados = () => {
+
+    if(typeof plantas.length === "undefined")
+      return;
+
+    return plantas?.map(planta => {
+      return {
+        nome: planta?.nome,
+        tipoSolo: planta?.tipoSolo?.tipoSolo,
+        gotejamento: true,
+        irrigada: true,
+        solenoide: planta?.solenoide?.tag,
+        sensor: planta?.sensor?.nome,
+        status: planta?.sensor?.status      
+      }
+    });
+  }
 
   return (
     <div className={classes.fundo}>
       <Titulo titulo = "Monitoramento" imagem={Image}/>
+
       <HeaderSider />
-      <Card className={classes.root} variant="outlined" style={{ height: 480, width: '100%' }}  >
-      <div style={{ height: 450, marginLeft: "10px", marginRight: "10px", paddingTop: "50px"}}>
-      <DataGrid
-            columns={[{ field: 'Nome', minWidth: 200, type: 'string' }, { field: 'TipoSolo', minWidth: 200, type: 'string' }, 
-                    { field: 'Gotejamento', type: 'boolean', width: 200 }, { field: 'Irrigada', type: 'boolean', width: 200 },
-                    { field: 'Solenoide', type: 'string', width: 200 }, { field: 'Sensor', type: 'string', width: 200 },
-                    { field: 'Status', type: 'string', width: 100 }]}
-            rows={rows}
-          />
+      <Card className={classes.root} variant="outlined" style={{ height: 650, width: '100%' }} >
+        <div style={{ height: 450, marginLeft: "10px", marginRight: "10px", paddingTop: "50px"}}>
+          <DataGrid
+            columns={columns}
+            rows={montarDados()}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+          />       
         </div>
       </Card>
       <Footer/>
