@@ -1,4 +1,4 @@
-import { ALERTA } from '../Action/actionType';
+import { ALERTA } from '../action/actionType';
 
 const INITIAL_STATE = {
     alert: false

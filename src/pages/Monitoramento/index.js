@@ -6,18 +6,20 @@ import HeaderSider from '../../components/HeaderSider/index';
 import Footer from '../../components/Footer/index';
 import './sytle.css';
 import Titulo from "../../components/Titulo/index";
-import { getPlantas } from '../../services/api/planta';
+import { getSensores } from '../../services/api/sensor';
 import { useDispatch } from 'react-redux';
 import Image from "../../assets/img/analytics.png";
 
 const columns = [
+  {  field: "id", headerName: "ID", width: 80 },
   {  field: "nome", headerName: "Nome da Planta", width: 250, editable: false  },
-  {  field: "tipoSolo", headerName: "Tipo de Solo", width: 300 },
-  {  field: "gotejamento", headerName: "Gotejamento", type: 'boolean', width: 250, editable: false  },
-  {  field: "irrigada", headerName: "Irrigada", type: 'boolean', width: 250 },
+  {  field: "tipoSolo", headerName: "Tipo de Solo", width: 200 },
+  {  field: "gotejamento", headerName: "Gotejamento", type: 'boolean', width: 200, editable: false  },
+  {  field: "irrigada", headerName: "Irrigada", type: 'boolean', width: 200 },
   {  field: "solenoide", headerName: "Solenóide", width: 250 },
-  {  field: "sensor", headerName: "Sensor", width: 250 },
-  {  field: "status", headerName: "Status", width: 250 },
+  {  field: "sensor", headerName: "Sensor", width: 200 },
+  {  field: "status", headerName: "Status", width: 150 },
+  {  field: "dtleitura", headerName: "Data Leitura", width: 200 },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -50,34 +52,37 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Plantas() {
   const classes = useStyles();
-  const [plantas, setPlantas] = useState({});
+  const [sensores, setSensores] = useState({});
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   async function getItems() {
-  //     const data = await getPlantas();
-  //     setPlantas(data?.data?.plantas);
-  //   }
-  //   getItems();
-  // },[dispatch]);
+  useEffect(() => {
+    async function getItems() {
+      const data = await getSensores();
+      setSensores(data?.data?.sensores);
+    }
+    getItems();
+  },[dispatch]);
 
   const montarDados = () => {
+    
+    console.log(sensores);
+    console.log(sensores.length);
 
-    if(typeof plantas.length === "undefined")
-      return;
-
-    return plantas?.map(planta => {
-      return {
-        nome: planta?.nome,
-        tipoSolo: planta?.tipoSolo?.tipoSolo,
-        gotejamento: true,
-        irrigada: true,
-        solenoide: planta?.solenoide?.tag,
-        sensor: planta?.sensor?.nome,
-        status: planta?.sensor?.status      
-      }
-    });
+    if(sensores?.length > 0)
+      return sensores?.map(sensor => {
+        return {
+          id: sensor?.sensorId,
+          nome: sensor?.planta.nome,
+          tipoSolo: sensor?.planta?.tipoSolo?.tipoSolo,
+          gotejamento: sensor?.solenoide?.status === "ABERTA" ? false : true,
+          irrigada: sensor?.solenoide?.status === "ABERTA" ? false : true,
+          solenoide: sensor?.solenoide?.tag,
+          sensor: sensor?.nome,
+          status: sensor?.solenoide?.status,
+          dtleitura: sensor?.dataLeitura,             
+        }
+      });
   }
 
   return (
