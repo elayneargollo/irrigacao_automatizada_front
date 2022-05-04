@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import CadastroPlanta from '../pages/Plantas/Cadastrar/index';
+import CadastroSolenoide from '../pages/Solenoide/Cadastrar/index';
 import CadastroRaspberry from '../pages/Configuracao/Cadastrar/index';
 import Home from '../pages/Root/index';
 import Login from '../pages/Login/index';
@@ -11,6 +12,8 @@ import Sistema from '../pages/Sistema/index';
 import Configuracao from '../pages/Configuracao/index';
 import Monitoramento from '../pages/Monitoramento/index';
 import Plantas from '../pages/Plantas/index';
+import Sensor from '../pages/Sensor/index';
+import Solenoide from '../pages/Solenoide/index';
 import Alert from '../components/Alert/index';
 import PrivateRoute from './privateRoute';
 
@@ -36,6 +39,14 @@ export default function Rotas() {
           <Route exact path={paths.monitoramento}  element={<Monitoramento/>}/>
         </Route>
 
+        <Route exact path={paths.sensor}  element={<PrivateRoute/>}>
+          <Route exact path={paths.sensor}  element={<Sensor/>}/>
+        </Route>
+
+        <Route exact path={paths.solenoide}  element={<PrivateRoute/>}>
+          <Route exact path={paths.solenoide}  element={<Solenoide/>}/>
+        </Route>
+
         <Route exact path={paths.sistema}  element={<PrivateRoute/>}>
           <Route exact path={paths.sistema}  element={<Sistema/>}/>
         </Route>
@@ -54,6 +65,10 @@ export default function Rotas() {
 
         <Route exact path={paths.cadastrarPlantas}  element={<PrivateRoute/>}>
           <Route exact path={paths.cadastrarPlantas}  element={<CadastroPlanta/>}/>
+        </Route>
+
+        <Route exact path={paths.cadastrarSolenoide}  element={<PrivateRoute/>}>
+          <Route exact path={paths.cadastrarSolenoide}  element={<CadastroSolenoide/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

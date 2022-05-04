@@ -21,7 +21,9 @@ import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
 import BuildIcon from '@material-ui/icons/Build';
 import EcoIcon from '@material-ui/icons/Eco';
 import { useNavigate } from 'react-router-dom';
-import { home, about, monitoramento, sistema, plantas } from '../../routes/paths';
+import { home, about, monitoramento, sistema, plantas, sensor, solenoide } from '../../routes/paths';
+import IsoIcon from '@mui/icons-material/Iso';
+import InvertColorsOffIcon from '@mui/icons-material/InvertColorsOff';
 
 const drawerWidth = 200;
 
@@ -94,6 +96,21 @@ const useStyles = makeStyles((theme) => ({
 
 const menuItens = [
   {
+    text: 'Monitoriamento',
+    icon: <PersonalVideoIcon style={{ color: '#ffff' }}/>,
+    path: monitoramento
+  },
+  {
+    text: 'Sensor',
+    icon: <IsoIcon style={{ color: '#ffff' }}/>,
+    path: sensor
+  },
+  {
+    text: 'Solenóide',
+    icon: <InvertColorsOffIcon style={{ color: '#ffff' }}/>,
+    path: solenoide
+  },
+  {
     text: 'Sistema',
     icon: <BuildIcon style={{ color: '#ffff' }} />,
     path: sistema
@@ -115,12 +132,7 @@ const itens = [
     text: 'Planta',
     icon: <EcoIcon style={{ color: '#ffff' }}/>,
     path: plantas
-  },
-  {
-    text: 'Monitoriamento',
-    icon: <PersonalVideoIcon style={{ color: '#ffff' }}/>,
-    path: monitoramento
-  },
+  }
 ]
 
 export default function MiniDrawer() {

@@ -15,4 +15,8 @@ export const configuracao = '/configuracao';
 export const cadastrarRaspberry = '/configuracao/cadastrarRaspberry';
 export const sistema = '/sistema';
 export const monitoramento = '/monitoramento';
+export const sensor = '/sensor';
+export const cadastrarSensores = '/cadastrarSensores';
+export const solenoide = '/solenoide';
+export const cadastrarSolenoide = '/cadastrarSolenoide';
 

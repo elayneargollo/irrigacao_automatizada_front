@@ -1,115 +1,121 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import { DataGrid } from '@mui/x-data-grid';
+import AddIcon from '@material-ui/icons/Add';
+import { useNavigate } from 'react-router-dom';
+import { cadastrarSensores } from '../../routes/paths';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import Tooltip from '@material-ui/core/Tooltip';
+import HeaderSider from '../../components/HeaderSider/index';
+import Footer from '../../components/Footer/index';
+import './sytle.css';
+import Logo from "../../assets/img/folha.png";
+import Titulo from "../../components/Titulo/index";
+import { getSensores } from '../../services/api/sensor';
+import { useDispatch } from 'react-redux';
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
 
-export default function HorizontalLinearStepper() {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
+const columns = [
+  {  field: "id", headerName: "ID", width: 80 },
+  {  field: "nome", headerName: "Nome", width: 250, editable: false  },
+  {  field: "status", headerName: "Status", type: 'boolean', width: 250, editable: false  },
+  {  field: "tag", headerName: "Tag do Sensor", width: 300 },
+  {  field: "solenoide", headerName: "Tag da Solenóide", width: 250 },
+  {  field: "dtLeitura", headerName: "Data de leitura", width: 250 }
+];
 
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    maxWidth: '80%',
+    marginTop: 25,
+    backgroundImage: 'linear-gradient(#99C2B9,#FFFEFF,#FFFEFF, #FFFEFF, #FFFEFF)'
+  },
+  tooltip: {
+  backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+      boxShadow: theme.shadows[1],
+        fontSize: 11,
+  },
+  fundo:
+  {
+    background: '#f7f6f4',
+    height: '100vh',
+  },
+  titulo :
+  {
+    marginLeft: "220px",
+    marginRight: "auto",
+    marginTop: 100,
+    display: 'flex'
+  }
+}));
 
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
+export default function Sensores() {
+  const classes = useStyles();
+  const navigate = useNavigate();
+  const [sensores, setSensores] = useState({});
 
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
+  const handleChangeAdd = () => navigate(cadastrarSensores);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function getItems() {
+      const data = await getSensores();
+      setSensores(data?.data?.sensores);
+      console.log(data);
     }
+    getItems();
+  },[dispatch]);
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
+  const montarDados = () => {
+    if(sensores.length > 0)
+    {
+      return sensores?.map(sensor => {
+        return {
+          id: sensor?.sensorId,
+          nome: sensor?.nome,
+          status: sensor?.status,
+          tag: sensor?.tag,
+          solenoide: sensor?.solenoide?.tag,
+          dtLeitura: sensor?.dataLeitura
+        }
+      });
     }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+  }
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
-          const stepProps = {};
-          const labelProps = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = (
-              <Typography variant="caption">Optional</Typography>
-            );
-          }
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
-          return (
-            <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-      {activeStep === steps.length ? (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
-          </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: '1 1 auto' }} />
-            {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
-              </Button>
-            )}
+    <div className={classes.fundo}>
+      <Titulo titulo = "Sensor" imagem = {Logo}/>
 
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+      <HeaderSider />
+      <Card className={classes.root} variant="outlined" style={{ height: 650, width: '100%' }} >
+        <CardActions>
+          <Tooltip title="Adicionar uma nova sensor ao sistema" arrow>
+            <Button style={{ fontWeight: 'bold', fontSize: "20px"}}
+              variant="outlined"
+              onClick={handleChangeAdd}
+              startIcon={<AddIcon />}
+              color='primary'
+            >
+              Cadastrar Sensor
             </Button>
-          </Box>
-        </React.Fragment>
-      )}
-    </Box>
+          </Tooltip>
+        </CardActions>
+
+        <div style={{ height: 450, marginLeft: "10px", marginRight: "10px", paddingTop: "50px"}}>
+          <DataGrid
+            columns={columns}
+            rows={montarDados()}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+          />       
+        </div>
+      </Card>
+      <Footer/>
+    </div>
   );
 }

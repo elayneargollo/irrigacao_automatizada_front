@@ -27,5 +27,14 @@ export function ValidationAddPlanta(dados)
   if(!dados.nome) return `Campo Nome Popular da Planta é obrigatório`;
 }
 
+export function ValidationAddSolenoide(dados)
+{
+  if(!dados.tag) return `Campo Tag é obrigatório`;
+  if(!dados.status) return `Campo Status é obrigatório`;
+  if(!dados.quantidadeVias) return `Campo Quantidade de vias é obrigatório`;
+  if(!dados.voltagem) return `Campo Tensão é obrigatório`;
+  if(!dados.corpo) return `Campo Corpo é obrigatório`;
+}
+
 
 
