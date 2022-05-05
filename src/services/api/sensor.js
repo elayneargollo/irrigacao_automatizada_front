@@ -23,3 +23,16 @@ export const getByIdSensores = id =>
         return error;
     });
 }
+
+export const postSensor = sensor =>
+{
+    return axios
+    .post(`/sensores/`, sensor)
+    .then(response => {
+        console.log(sensor);
+        return response;
+    })
+    .catch(error => {
+        return error;
+    });
+}

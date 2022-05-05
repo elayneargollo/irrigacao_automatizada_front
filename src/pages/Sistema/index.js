@@ -16,7 +16,6 @@ import Image from "../../assets/img/system.png";
 import Esquema from "../../assets/img/esquema.png";
 import EsquemaEletrico from "../../assets/img/esquemaEletrico.png";
 import Sensor from "../../assets/img/sensor.png";
-import CheckIcon from '@mui/icons-material/Check';
 
 const useStyles = makeStyles((theme) => ({
   root: {

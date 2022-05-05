@@ -36,5 +36,11 @@ export function ValidationAddSolenoide(dados)
   if(!dados.corpo) return `Campo Corpo é obrigatório`;
 }
 
-
-
+export function ValidationAddSensor(dados)
+{
+  if(!dados.tag) return `Campo Tag é obrigatório`;
+  if(!dados.status) return `Campo Status é obrigatório`;
+  if(!dados.plantaId) return `É necessário escolher ao menos uma planta`;
+  if(!dados.solenoideId) return `É necessário associar ao menos a uma solenóide`;
+  if(!dados.nome) return `Campo Nome é obrigatório`;
+}

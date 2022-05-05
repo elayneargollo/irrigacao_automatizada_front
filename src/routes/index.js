@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import CadastroPlanta from '../pages/Plantas/Cadastrar/index';
 import CadastroSolenoide from '../pages/Solenoide/Cadastrar/index';
+import CadastroSensor from '../pages/Sensor/Cadastrar/index';
 import CadastroRaspberry from '../pages/Configuracao/Cadastrar/index';
 import Home from '../pages/Root/index';
 import Login from '../pages/Login/index';
@@ -65,6 +66,10 @@ export default function Rotas() {
 
         <Route exact path={paths.cadastrarPlantas}  element={<PrivateRoute/>}>
           <Route exact path={paths.cadastrarPlantas}  element={<CadastroPlanta/>}/>
+        </Route>
+
+        <Route exact path={paths.cadastrarSensores}  element={<PrivateRoute/>}>
+          <Route exact path={paths.cadastrarSensores}  element={<CadastroSensor/>}/>
         </Route>
 
         <Route exact path={paths.cadastrarSolenoide}  element={<PrivateRoute/>}>

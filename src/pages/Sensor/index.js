@@ -21,6 +21,7 @@ const columns = [
   {  field: "id", headerName: "ID", width: 80 },
   {  field: "nome", headerName: "Nome", width: 250, editable: false  },
   {  field: "status", headerName: "Status", type: 'boolean', width: 250, editable: false  },
+  {  field: "calibrado", headerName: "Calibrado", type: 'boolean', width: 250, editable: false  },
   {  field: "tag", headerName: "Tag do Sensor", width: 300 },
   {  field: "solenoide", headerName: "Tag da Solenóide", width: 250 },
   {  field: "dtLeitura", headerName: "Data de leitura", width: 250 }
@@ -81,7 +82,8 @@ export default function Sensores() {
           status: sensor?.status,
           tag: sensor?.tag,
           solenoide: sensor?.solenoide?.tag,
-          dtLeitura: sensor?.dataLeitura
+          dtLeitura: sensor?.dataLeitura,
+          calibrado: sensor?.valorCalibracaoMaximo == null ? false : true
         }
       });
     }
