@@ -11,10 +11,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 import HeaderSider from '../../components/HeaderSider/index';
 import Footer from '../../components/Footer/index';
 import './sytle.css';
-import Logo from "../../assets/img/folha.png";
+import Logo from "../../assets/img/valvula.png";
 import Titulo from "../../components/Titulo/index";
 import { getSolenoides } from '../../services/api/solenoide';
 import { useDispatch } from 'react-redux';
+import { convertDateTimePtBr } from '../../utils/format';
 
 const columns = [
     { field: "id", headerName: "ID", width: 80 },
@@ -78,7 +79,7 @@ export default function Solenoide() {
                     id: solenoide?.solenoideId,
                     tag: solenoide?.tag,
                     status: solenoide?.status === "ABERTO" ? true : false,
-                    dtLeitura: solenoide?.dataLeitura,
+                    dtLeitura: convertDateTimePtBr(solenoide?.dataLeitura),
                     quantidadeVia: solenoide?.quantidadeVias,
                     corpo: solenoide?.corpo,
                     voltagem: solenoide?.voltagem + 'V',

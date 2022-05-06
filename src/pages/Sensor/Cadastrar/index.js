@@ -14,7 +14,7 @@ import { sensor } from '../../../routes/paths';
 import clsx from 'clsx';
 import HeaderSider from '../../../components/HeaderSider/index';
 import Footer from '../../../components/Footer/index';
-import Logo from "../../../assets/img/folha.png";
+import Logo from "../../../assets/img/sensorIcons.png";
 import Titulo from "../../../components/Titulo/index";
 import { ValidationAddSensor } from "../../../utils/validations.js";
 import { MensagemCadastroComSucesso } from "../../../utils/resource";
@@ -42,9 +42,13 @@ const useStyles = makeStyles((theme) => ({
   withoutLabel: {
     marginTop: theme.spacing(3),
   },
+  textFieldDescricao: {
+    marginTop: theme.spacing(3),
+    width: '60ch',
+  },
   textField: {
     marginTop: theme.spacing(3),
-    width: '25ch',
+    width: '30ch',
   },
   fundo:
   {
@@ -67,6 +71,12 @@ export default function CadastrarSensores() {
 
   const [solenoideId, setSolenoideId] = React.useState('');
   const [solenoides, setSolenoides] = React.useState('');
+
+  const [voltagem, setTensao] = React.useState('');
+
+  const handleChangeTensao = (event) => {
+    setTensao(event.target.value);
+  };
 
   const handleChangeStatus = (event) => {
     setStatus(event.target.value);
@@ -103,7 +113,7 @@ export default function CadastrarSensores() {
 
 
   const handleChangeSalvar = () => {
-    let dados = { tag, status, plantaId, solenoideId, nome };
+    let dados = { tag, status, plantaId, solenoideId, nome, voltagem };
     var camposRequeridos = ValidationAddSensor(dados);
 
     if(camposRequeridos) return swal("Ocorreu um erro", `${camposRequeridos}`, "error");
@@ -130,7 +140,7 @@ export default function CadastrarSensores() {
       <Card className={classes.root} variant="outlined" >
         <CardContent>
           <div>
-            <TextField className={clsx(classes.margin, classes.textField)}
+            <TextField className={clsx(classes.margin, classes.textFieldDescricao)}
               id="margin-none"
               label="Tag *"
               placeholder="Identificador"
@@ -138,15 +148,17 @@ export default function CadastrarSensores() {
               onChange={(e) => setTag(e.target.value)}
             />
   
-            <TextField className={clsx(classes.margin, classes.textField)}
+            <TextField className={clsx(classes.margin, classes.textFieldDescricao)}
               id="margin-none"
               label="Nome *"
               placeholder="Nome"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
             />
+          </div>
 
-            <FormControl className={clsx(classes.margin, classes.textField)}>
+        <div>
+        <FormControl className={clsx(classes.margin, classes.textField)}>
               <InputLabel id="demo-simple-select-label">Solenoide *</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -159,10 +171,7 @@ export default function CadastrarSensores() {
                 ))};
               </Select>
             </FormControl >
-
-          </div>
-
-        <div>
+            
             <FormControl className={clsx(classes.margin, classes.textField)}>
               <InputLabel id="demo-simple-select-label">Status *</InputLabel>
               <Select
@@ -173,6 +182,22 @@ export default function CadastrarSensores() {
               >
                 <MenuItem value={'ABERTO'}>ABERTO</MenuItem>
                 <MenuItem value={'FECHADO'}>FECHADO </MenuItem>
+              </Select>
+            </FormControl >
+
+            <FormControl className={clsx(classes.margin, classes.textField)}>
+              <InputLabel id="demo-simple-select-label">Tensão *</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="margin-none"
+                value={voltagem}
+                onChange={handleChangeTensao}
+              >
+                <MenuItem value={5}>5V</MenuItem>
+                <MenuItem value={12}>12V</MenuItem>
+                <MenuItem value={24}>24V</MenuItem>
+                <MenuItem value={110}>110V</MenuItem>
+                <MenuItem value={220}>220v</MenuItem>
               </Select>
             </FormControl >
 

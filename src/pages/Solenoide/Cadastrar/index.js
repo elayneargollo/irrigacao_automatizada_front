@@ -14,7 +14,7 @@ import { solenoide } from '../../../routes/paths';
 import clsx from 'clsx';
 import HeaderSider from '../../../components/HeaderSider/index';
 import Footer from '../../../components/Footer/index';
-import Logo from "../../../assets/img/folha.png";
+import Logo from "../../../assets/img/valvula.png";
 import Titulo from "../../../components/Titulo/index";
 import { ValidationAddSolenoide } from "../../../utils/validations.js";
 import { MensagemCadastroComSucesso } from "../../../utils/resource";

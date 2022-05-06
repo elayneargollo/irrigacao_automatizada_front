@@ -45,3 +45,7 @@
 h1{
     color: #474A51;
 }
+
+.MuiButton-textSizeSmall {
+    font-size: 20px;
+  }

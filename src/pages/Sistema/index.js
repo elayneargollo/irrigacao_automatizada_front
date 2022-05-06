@@ -71,6 +71,9 @@ export default function Sistema() {
                 <List>
                   <ListItemText primary="Alimentação da solenóide: 110V" />
                   <ListItemText primary="Alimentação do raspberry: 5V" />
+                  <ListItemText primary="Alimentação do sensor umidade: 3,3-5v" />
+                  <ListItemText primary="Alimentação módulo Relé: 5v" />
+                  <ListItemText primary="Alimentação módulo ADS1115: 2 à 5.5VDC" />
                 </List>
               </Typography>
             </AccordionDetails>
@@ -87,11 +90,14 @@ export default function Sistema() {
             <AccordionDetails>
               <Typography>
               <List>
-                <ListItemText primary="Mangueira P/ Conexão Bomba Submersa Com Saída 1/2 Pol Eclusa " />
-                <ListItemText primary="10 Unidades De Divisor Conector Em T 4mm Branco" />
-                <ListItemText primary="Bicos Para Torneira Jardim 1/2 Ou 3/4 Tramontina Original" />
+                <ListItemText primary="Bicos Para Torneira Jardim 1/2 Ou 3/4 Tramontina" />
                 <ListItemText primary="Mangueira Para Filtro Electrolux Pa11b Pe11x Pa21g 1/4 2mts" />
-                <ListItemText primary="Gotejador" />
+                <ListItemText primary="Estaca Jardim Vaso Pomar Gotejamento Regulável" />
+                <ListItemText primary="Sensor de Umidade do Solo Higrômetro" />
+                <ListItemText primary="Bico De Torneira - Saída Microtubo 1/4 Ou 3/8 - Irrigação" />
+                <ListItemText primary="Derivação Em Y + 3 Engates Rápidos" />
+                <ListItemText primary="Conversor Analógico Digital 4 canais ADS1115" />
+                <ListItemText primary="Módulo Relé 4 Canais" />
               </List>
               </Typography>
             </AccordionDetails>

@@ -9,14 +9,15 @@ import Titulo from "../../components/Titulo/index";
 import { getSensores } from '../../services/api/sensor';
 import { useDispatch } from 'react-redux';
 import Image from "../../assets/img/analytics.png";
+import { convertDateTimePtBr } from '../../utils/format';
 
 const columns = [
   {  field: "id", headerName: "ID", width: 80 },
-  {  field: "nome", headerName: "Nome da Planta", width: 250, editable: false  },
-  {  field: "tipoSolo", headerName: "Tipo de Solo", width: 200 },
+  {  field: "nome", headerName: "Planta", width: 300, editable: false  },
+  {  field: "tipoSolo", headerName: "Solo", width: 200 },
   {  field: "gotejamento", headerName: "Gotejamento", type: 'boolean', width: 200, editable: false  },
   {  field: "irrigada", headerName: "Irrigada", type: 'boolean', width: 200 },
-  {  field: "solenoide", headerName: "Solenóide", width: 250 },
+  {  field: "solenoide", headerName: "Solenóide", width: 200 },
   {  field: "sensor", headerName: "Sensor", width: 200 },
   {  field: "status", headerName: "Status", width: 150 },
   {  field: "dtleitura", headerName: "Data Leitura", width: 200 },
@@ -78,9 +79,9 @@ export default function Plantas() {
           gotejamento: sensor?.solenoide?.status === "ABERTA" ? false : true,
           irrigada: sensor?.solenoide?.status === "ABERTA" ? false : true,
           solenoide: sensor?.solenoide?.tag,
-          sensor: sensor?.nome,
+          sensor: sensor?.tag,
           status: sensor?.solenoide?.status,
-          dtleitura: sensor?.dataLeitura,             
+          dtleitura: convertDateTimePtBr(sensor?.dataLeitura),             
         }
       });
   }

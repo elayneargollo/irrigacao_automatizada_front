@@ -11,20 +11,22 @@ import Tooltip from '@material-ui/core/Tooltip';
 import HeaderSider from '../../components/HeaderSider/index';
 import Footer from '../../components/Footer/index';
 import './sytle.css';
-import Logo from "../../assets/img/folha.png";
+import Logo from "../../assets/img/sensorIcons.png";
 import Titulo from "../../components/Titulo/index";
 import { getSensores } from '../../services/api/sensor';
 import { useDispatch } from 'react-redux';
+import { convertDateTimePtBr } from '../../utils/format';
 
 
 const columns = [
   {  field: "id", headerName: "ID", width: 80 },
-  {  field: "nome", headerName: "Nome", width: 250, editable: false  },
+  {  field: "nome", headerName: "Nome", width: 300, editable: false  },
   {  field: "status", headerName: "Status", type: 'boolean', width: 250, editable: false  },
   {  field: "calibrado", headerName: "Calibrado", type: 'boolean', width: 250, editable: false  },
   {  field: "tag", headerName: "Tag do Sensor", width: 300 },
   {  field: "solenoide", headerName: "Tag da Solenóide", width: 250 },
-  {  field: "dtLeitura", headerName: "Data de leitura", width: 250 }
+  {  field: "dtLeitura", headerName: "Data de leitura", width: 250 },
+  { field: "voltagem", headerName: "Tensão", width: 250, editable: false }
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -82,8 +84,9 @@ export default function Sensores() {
           status: sensor?.status,
           tag: sensor?.tag,
           solenoide: sensor?.solenoide?.tag,
-          dtLeitura: sensor?.dataLeitura,
-          calibrado: sensor?.valorCalibracaoMaximo == null ? false : true
+          dtLeitura: convertDateTimePtBr(sensor?.dataLeitura),
+          calibrado: sensor?.valorCalibracaoMaximo == null ? false : true,
+          voltagem: sensor?.voltagem + 'V'
         }
       });
     }

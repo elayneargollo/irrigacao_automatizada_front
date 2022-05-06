@@ -20,6 +20,7 @@ import Home from '@material-ui/icons/Home';
 import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
 import BuildIcon from '@material-ui/icons/Build';
 import EcoIcon from '@material-ui/icons/Eco';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 import { useNavigate } from 'react-router-dom';
 import { home, about, monitoramento, sistema, plantas, sensor, solenoide } from '../../routes/paths';
 import IsoIcon from '@mui/icons-material/Iso';
@@ -132,6 +133,10 @@ const itens = [
     text: 'Planta',
     icon: <EcoIcon style={{ color: '#ffff' }}/>,
     path: plantas
+  },
+  {
+    text: 'Sair',
+    icon: <ExitToApp style={{ color: '#ffff' }}/>
   }
 ]
 
