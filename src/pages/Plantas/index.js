@@ -11,6 +11,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Tooltip from '@material-ui/core/Tooltip';
 import HeaderSider from '../../components/HeaderSider/index';
+import Modal from '../../components/Modal/index';
 import Footer from '../../components/Footer/index';
 import './sytle.css';
 import Logo from "../../assets/img/folha.png";
@@ -20,81 +21,6 @@ import { useDispatch } from 'react-redux';
 import swal from 'sweetalert';
 import DetailsIcon from '@material-ui/icons/Details';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-const columns = [
-  { field: "id", headerName: "ID", width: 80 },
-  { field: "nome", headerName: "Nome Popular", width: 250, editable: false },
-  { field: "ambiente", headerName: "Ambiente", width: 250, editable: false },
-  { field: "tipoSolo", headerName: "Tipo de Solo", width: 300 },
-  { field: "porte", headerName: "Porte", width: 250 },
-  { field: "fruto", headerName: "Fruto", width: 250 },
-  {
-    field: 'Deletar', headerName: 'Deletar', width: 250,
-    renderCell: (params) => (
-      <strong>
-        {params.value}
-        <IconButton
-          aria-label="Deletar"
-          title="Deletar planta"
-          onClick={() => handleChangeDelete(params)}
-        >
-          <DeleteIcon color="primary" />
-        </IconButton>
-      </strong>
-    ),
-  },
-  {
-    field: ' Detalhar', headerName: 'Detalhar', width: 250,
-    renderCell: (params) => (
-      <strong>
-        {params.value}
-        <IconButton
-          aria-label="Detalhar"
-          title="Detalhar planta"
-          onClick={() => handleChangeDetalhar(params)}
-        >
-          <DetailsIcon color="primary" />
-        </IconButton>
-      </strong>
-    ),
-  }
-];
-
-const handleChangeDelete = (params) => {
-  console.log(`Delete => ${params.id}`);
-
-  async function deletarPlanta() {
-    const res = await deleteByIdPlantas(params.id);
-    console.log(res);
-
-    if (res.status === 200) {
-      swal(`${res.data.message}`);
-    }
-    else {
-      swal("Houve um erro", `${res.response.data.message}`, "error");
-    }
-  }
-
-  deletarPlanta();
-}
-
-const handleChangeDetalhar = (params) => {
-  console.log(`Detalhar => ${params.id}`);
-
-  async function deletarPlanta() {
-    const res = await getByIdPlantas(params.id);
-    console.log(res);
-
-    if (res.status === 200) {
-      swal(`${res.data}`);
-    }
-    else {
-      swal("Houve um erro", `${res.response.data.message}`, "error");
-    }
-  }
-
-  deletarPlanta();
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -125,6 +51,84 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Plantas() {
+  const columns = [
+    { field: "id", headerName: "ID", width: 80 },
+    { field: "nome", headerName: "Nome Popular", width: 250, editable: false },
+    { field: "ambiente", headerName: "Ambiente", width: 250, editable: false },
+    { field: "tipoSolo", headerName: "Tipo de Solo", width: 300 },
+    { field: "porte", headerName: "Porte", width: 250 },
+    { field: "fruto", headerName: "Fruto", width: 250 },
+    {
+      field: 'Deletar', headerName: 'Deletar', width: 250,
+      renderCell: (params) => (
+        <strong>
+          {params.value}
+          <IconButton
+            aria-label="Deletar"
+            title="Deletar planta"
+            onClick={() => handleChangeDelete(params)}
+          >
+            <DeleteIcon color="primary" />
+          </IconButton>
+        </strong>
+      ),
+    },
+    {
+      field: ' Detalhar', headerName: 'Detalhar', width: 250,
+      renderCell: (params) => (
+        <strong>
+          {params.value}
+          <IconButton
+            aria-label="Detalhar"
+            title="Detalhar planta"
+            onClick={() => handleChangeDetalhar(params)}
+          >
+            <DetailsIcon color="primary" />
+          </IconButton>
+        </strong>
+      ),
+    }
+  ];
+  
+  const handleChangeDelete = (params) => {
+    console.log(`Delete => ${params.id}`);
+  
+    async function deletarPlanta() {
+      const res = await deleteByIdPlantas(params.id);
+      console.log(res);
+  
+      if (res.status === 200) {
+        swal(`${res.data.message}`);
+      }
+      else {
+        swal("Houve um erro", `${res.response.data.message}`, "error");
+      }
+    }
+  
+    deletarPlanta();
+  }
+  
+  const handleChangeDetalhar = (params) => {
+    console.log(`Detalhar => ${params.id}`);
+  
+    async function deletarPlanta() {
+      const res = await getByIdPlantas(params.id);
+      console.log(res.data);
+  
+      if (res.status === 200) {
+        setIsOpen(true);
+        setPlanta(res.data);
+      }
+      else {
+        swal("Houve um erro", `${res.response.data.message}`, "error");
+      }
+    }
+  
+    deletarPlanta();
+  }
+
+  const [planta, setPlanta] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
   const classes = useStyles();
   const navigate = useNavigate();
   const [plantas, setPlantas] = useState({});
@@ -166,6 +170,8 @@ export default function Plantas() {
     );
   } else {
     return (
+      <div>
+        {isOpen && <Modal model={planta} setIsOpen={setIsOpen} />}
       <div className={classes.fundo}>
         <Titulo titulo="Planta" imagem={Logo} />
 
@@ -194,6 +200,7 @@ export default function Plantas() {
           </div>
         </Card>
         <Footer />
+      </div>
       </div>
     );
   }

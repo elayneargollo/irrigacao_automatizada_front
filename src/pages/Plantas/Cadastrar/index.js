@@ -45,7 +45,11 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     marginTop: theme.spacing(3),
-    width: '25ch',
+    width: '30ch',
+  },
+  textFieldName: {
+    marginTop: theme.spacing(3),
+    width: '50ch',
   },
   fundo:
   {
@@ -140,7 +144,7 @@ export default function CadastrarPlantas() {
       <Card className={classes.root} variant="outlined" >
         <CardContent>
           <div>
-            <TextField className={clsx(classes.margin, classes.textField)}
+            <TextField className={clsx(classes.margin, classes.textFieldName)}
               id="margin-none"
               label="Nome Popular da Planta *"
               placeholder="Informe o nome da planta"

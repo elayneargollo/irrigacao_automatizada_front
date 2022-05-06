@@ -12,6 +12,19 @@ export const getSolenoides = () =>
     });
 }
 
+
+export const getByIdSolenoides =  id =>
+{
+    return axios
+    .get(`/solenoides/${id}`)
+    .then(response => {
+        return response;
+    })
+    .catch(error => {
+        return error;
+    });
+}
+
 export const postSolenoide = solenoide =>
 {
     return axios

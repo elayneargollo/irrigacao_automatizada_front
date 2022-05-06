@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     marginTop: theme.spacing(3),
-    width: '25ch',
+    width: '40ch',
   },
   fundo:
   {

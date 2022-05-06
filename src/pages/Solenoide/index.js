@@ -13,19 +13,13 @@ import Footer from '../../components/Footer/index';
 import './sytle.css';
 import Logo from "../../assets/img/valvula.png";
 import Titulo from "../../components/Titulo/index";
-import { getSolenoides } from '../../services/api/solenoide';
+import { getSolenoides, getByIdSolenoides } from '../../services/api/solenoide';
 import { useDispatch } from 'react-redux';
 import { convertDateTimePtBr } from '../../utils/format';
-
-const columns = [
-    { field: "id", headerName: "ID", width: 80 },
-    { field: "tag", headerName: "Tag", width: 250, editable: false },
-    { field: "status", headerName: "Status", type: 'boolean', width: 250, editable: false },
-    { field: "dtLeitura", headerName: "Data", width: 250, editable: false },
-    { field: "quantidadeVia", headerName: "Vias", width: 250, editable: false },
-    { field: "corpo", headerName: "Material", width: 250, editable: false },
-    { field: "voltagem", headerName: "Tensão", width: 250, editable: false }
-];
+import IconButton from '@material-ui/core/IconButton';
+import DetailsIcon from '@material-ui/icons/Details';
+import swal from 'sweetalert';
+import Modal from '../../components/Modal/solenoide';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,6 +53,8 @@ export default function Solenoide() {
     const classes = useStyles();
     const navigate = useNavigate();
     const [solenoides, setSolenoides] = useState({});
+    const [solenoide, setSolenoide] = useState({});
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleChangeAdd = () => navigate(cadastrarSolenoide);
     const dispatch = useDispatch();
@@ -71,6 +67,50 @@ export default function Solenoide() {
         }
         getItems();
     }, [dispatch]);
+
+    const columns = [
+        { field: "id", headerName: "ID", width: 80 },
+        { field: "tag", headerName: "Tag", width: 250, editable: false },
+        { field: "status", headerName: "Status", type: 'boolean', width: 250, editable: false },
+        { field: "dtLeitura", headerName: "Data", width: 250, editable: false },
+        { field: "quantidadeVia", headerName: "Vias", width: 250, editable: false },
+        { field: "corpo", headerName: "Material", width: 250, editable: false },
+        { field: "voltagem", headerName: "Tensão", width: 250, editable: false },
+        {
+            field: ' Detalhar', headerName: 'Detalhar', width: 250,
+            renderCell: (params) => (
+              <strong>
+                {params.value}
+                <IconButton
+                  aria-label="Detalhar"
+                  title="Detalhar planta"
+                  onClick={() => handleChangeDetalhar(params)}
+                >
+                  <DetailsIcon color="primary" />
+                </IconButton>
+              </strong>
+            ),
+          }
+    ];
+
+    const handleChangeDetalhar = (params) => {
+        console.log(`Detalhar => ${params.id}`);
+      
+        async function detalharSolenoide() {
+          const res = await getByIdSolenoides(params.id);
+          console.log(res.data);
+      
+          if (res.status === 200) {
+            setIsOpen(true);
+            setSolenoide(res.data);
+          }
+          else {
+            swal("Houve um erro", `${res.response.data.message}`, "error");
+          }
+        }
+      
+        detalharSolenoide();
+      }
 
     const montarDados = () => {
         if (solenoides.length > 0) {
@@ -89,6 +129,8 @@ export default function Solenoide() {
     }
 
     return (
+        <div>
+        {isOpen && <Modal model={solenoide} setIsOpen={setIsOpen} />}
         <div className={classes.fundo}>
             <Titulo titulo="Solenóide" imagem={Logo} />
 
@@ -117,6 +159,7 @@ export default function Solenoide() {
                 </div>
             </Card>
             <Footer />
+        </div>
         </div>
     );
 }
