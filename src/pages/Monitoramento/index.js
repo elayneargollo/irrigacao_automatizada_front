@@ -82,7 +82,7 @@ export default function Plantas() {
 
     async function detalhar() {
       const res = await getByIdSensores(params.id);
-      console.log(res.data);
+     
 
       if (res.status === 200) {
         setIsOpen(true);

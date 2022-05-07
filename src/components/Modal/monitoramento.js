@@ -63,12 +63,12 @@ export default function ServerModal({ model, setIsOpen }) {
                         <div>
                             <TextField disabled id="standard-disabled" label="Data da última leitura do sensor" defaultValue={convertDateTimePtBr(model?.dataLeitura)} />
                             <TextField disabled id="standard-required" label="Nome do sensor" defaultValue={model?.nome} />
-                            <TextField disabled id="standard-disabled" label="Planta" defaultValue={model?.planta.nome} />
-                            <TextField disabled id="standard-disabled" label="Porte da planta" defaultValue={model?.planta.porte.descricao} />
-                            <TextField disabled id="standard-disabled" label="Ambiente da planta" defaultValue={model?.planta.ambiente.tipoAmbiente} />
-                            <TextField disabled id="standard-disabled" label="Solo da planta" defaultValue={model?.planta.tipoSolo.tipoSolo} />
-                            <TextField disabled id="standard-disabled" label="Status da solenoide" defaultValue={model?.solenoide.status} />
-                            <TextField disabled id="standard-disabled" label="Tag da solenoide" defaultValue={model?.solenoide.tag} />
+                            <TextField disabled id="standard-disabled" label="Planta" defaultValue={model?.planta?.nome} />
+                            <TextField disabled id="standard-disabled" label="Porte da planta" defaultValue={model?.planta?.porte?.descricao} />
+                            <TextField disabled id="standard-disabled" label="Ambiente da planta" defaultValue={model?.planta?.ambiente?.tipoAmbiente} />
+                            <TextField disabled id="standard-disabled" label="Solo da planta" defaultValue={model?.planta?.tipoSolo?.tipoSolo} />
+                            <TextField disabled id="standard-disabled" label="Status da solenoide" defaultValue={model?.solenoide?.status} />
+                            <TextField disabled id="standard-disabled" label="Tag da solenoide" defaultValue={model?.solenoide?.tag} />
                             <TextField disabled id="standard-disabled" label="Calibração máxima" defaultValue={model?.valorCalibracaoMaximo} />
                             <TextField disabled id="standard-disabled" label="Calibração mínima" defaultValue={model?.valorCalibracaoMinima} />
                             <TextField disabled id="standard-disabled" label="Tensão de operação" defaultValue={model?.voltagem} />

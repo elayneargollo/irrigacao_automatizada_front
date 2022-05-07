@@ -95,7 +95,6 @@ export default function Plantas() {
   
     async function deletarPlanta() {
       const res = await deleteByIdPlantas(params.id);
-      console.log(res);
   
       if (res.status === 200) {
         swal(`${res.data.message}`);
@@ -113,7 +112,6 @@ export default function Plantas() {
   
     async function deletarPlanta() {
       const res = await getByIdPlantas(params.id);
-      console.log(res.data);
   
       if (res.status === 200) {
         setIsOpen(true);
